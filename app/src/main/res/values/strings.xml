@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+    <string name="loading">Loading...</string>
+    <string name="pref_syncConnectionType">Sort By</string>
+    <string name="pref_syncConnectionTypes_default">1</string>
+    <string name="settings">settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">search</string>
+    <string name="refresh">refresh</string>
+
+</resources>

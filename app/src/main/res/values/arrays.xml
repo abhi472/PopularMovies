@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_syncConnectionTypes_entry_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="pref_syncConnectionTypes_entries">
+        <item>Ratings</item>
+        <item>Popularity</item>
+    </string-array>
+</resources>
