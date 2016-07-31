@@ -1,4 +1,6 @@
-package com.example.babayaga.popularmovies;
+package com.example.babayaga.popularmovies.Parser;
+
+import com.example.babayaga.popularmovies.Models.MovieD;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies;
+package com.example.babayaga.popularmovies.Fragments;
 
 
 import android.content.SharedPreferences;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.babayaga.popularmovies.R;
 
 
 public class PreferenceFragment extends android.preference.PreferenceFragment {

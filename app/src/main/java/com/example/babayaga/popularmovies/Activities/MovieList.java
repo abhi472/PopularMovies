@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies;
+package com.example.babayaga.popularmovies.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.example.babayaga.popularmovies.Fragments.ErrorFragment;
+import com.example.babayaga.popularmovies.Fragments.MovieFragment;
+import com.example.babayaga.popularmovies.R;
 
 public class MovieList extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 

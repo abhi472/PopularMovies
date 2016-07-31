@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies;
+package com.example.babayaga.popularmovies.Fragments;
 
 
 import android.app.ProgressDialog;
@@ -12,6 +12,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.babayaga.popularmovies.Parser.JsonPArser;
+import com.example.babayaga.popularmovies.Models.MovieD;
+import com.example.babayaga.popularmovies.R;
+import com.example.babayaga.popularmovies.Adapters.RAdapter;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;

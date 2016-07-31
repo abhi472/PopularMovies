@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies;
+package com.example.babayaga.popularmovies.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.example.babayaga.popularmovies.Activities.DetailActivity;
+import com.example.babayaga.popularmovies.Models.MovieD;
+import com.example.babayaga.popularmovies.R;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 

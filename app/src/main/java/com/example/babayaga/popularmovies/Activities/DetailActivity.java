@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies;
+package com.example.babayaga.popularmovies.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.babayaga.popularmovies.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 

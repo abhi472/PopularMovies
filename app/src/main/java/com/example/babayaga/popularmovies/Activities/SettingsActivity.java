@@ -1,9 +1,12 @@
-package com.example.babayaga.popularmovies;
+package com.example.babayaga.popularmovies.Activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.babayaga.popularmovies.Fragments.PreferenceFragment;
+import com.example.babayaga.popularmovies.R;
 
 /**
  * Created by mits on 7/10/16.

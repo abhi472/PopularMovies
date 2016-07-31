@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies;
+package com.example.babayaga.popularmovies.Models;
 
 /**
  * Created by mits on 7/9/16.
