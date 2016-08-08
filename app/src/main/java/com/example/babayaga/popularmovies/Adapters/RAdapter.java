@@ -35,7 +35,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
     private static Context con;
     int i=0;
     private static String s="http://image.tmdb.org/t/p/w320/";
-    RAdapter(ArrayList<MovieD> arr,Context con)
+    public RAdapter(ArrayList<MovieD> arr,Context con)
     {
         this.arr=arr;
         this.con = con;
