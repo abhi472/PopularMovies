@@ -55,7 +55,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
         Picasso.with(con)
                 .load(s+arr.get(position).poster_path)
-                .placeholder(R.drawable.no_image) // optional
+                .placeholder(R.drawable.no_image)
                 .error(R.drawable.no_image)         // optional
                 .into(holder.img);
         Log.d("TAG", "onBindViewHolder: " +position);
