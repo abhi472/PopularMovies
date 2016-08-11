@@ -55,7 +55,6 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
-//        app = (AppBarLayout)findViewById(R.id.app_bar_layout);
         app.addOnOffsetChangedListener(this);
 
 
