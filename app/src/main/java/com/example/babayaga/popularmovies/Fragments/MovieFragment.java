@@ -74,9 +74,9 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
 
         if (check) {
             if (s.equalsIgnoreCase("1")) {
-                url = "http://api.themoviedb.org/3/movie/top_rated?api_key=7a83a78b4e9a7bdbd184461cedb61494";
+                url = "http://api.themoviedb.org/3/movie/top_rated?api_key=";
             } else if (s.equalsIgnoreCase("2")) {
-                url = "https://api.themoviedb.org/3/movie/popular?api_key=7a83a78b4e9a7bdbd184461cedb61494";
+                url = "https://api.themoviedb.org/3/movie/popular?api_key=";
 
             }
 
