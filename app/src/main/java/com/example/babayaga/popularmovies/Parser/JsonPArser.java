@@ -24,6 +24,7 @@ public class JsonPArser {
             {
                 d=new MovieD();
                 JSONObject jo2 = ja.getJSONObject(i);
+                d.id = jo2.getString("id");
                 d.title = jo2.getString("title");
                 d.overview = jo2.getString("overview");
                 d.poster_path = jo2.getString("poster_path");

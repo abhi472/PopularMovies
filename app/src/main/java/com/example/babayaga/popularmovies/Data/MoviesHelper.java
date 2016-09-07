@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by abhi on 8/23/16.
  */
-public class MoviesHelper extends SQLiteOpenHelper {
+public  class MoviesHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "movies.db";
-    private static final String DATABASE_VERSION = "1";
+    private static final int DATABASE_VERSION = 1;
 
-    public MoviesHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public MoviesHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

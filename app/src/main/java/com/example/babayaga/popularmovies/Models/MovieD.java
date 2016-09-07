@@ -5,6 +5,7 @@ package com.example.babayaga.popularmovies.Models;
  */
 
 public class MovieD {
+        public String id;
         public String title;
         public String overview;
         public String vote_average;

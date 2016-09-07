@@ -3,10 +3,13 @@ package com.example.babayaga.popularmovies.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,7 +34,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MovieFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener , LoaderManager.LoaderCallbacks<Cursor> {
 
     private ProgressDialog dialog;
     @BindView(R.id.recycler)
@@ -49,7 +52,7 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        url = "https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=";
+        url = "https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=7a83a78b4e9a7bdbd184461cedb61494";
 
         View root = inflater.inflate(R.layout.fragment_movie, container, false);
         ButterKnife.bind(this,root);
@@ -74,9 +77,9 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
 
         if (check) {
             if (s.equalsIgnoreCase("1")) {
-                url = "http://api.themoviedb.org/3/movie/top_rated?api_key=";
+                url = "http://api.themoviedb.org/3/movie/top_rated?api_key=7a83a78b4e9a7bdbd184461cedb61494";
             } else if (s.equalsIgnoreCase("2")) {
-                url = "https://api.themoviedb.org/3/movie/popular?api_key=";
+                url = "https://api.themoviedb.org/3/movie/popular?api_key=7a83a78b4e9a7bdbd184461cedb61494";
 
             }
 
@@ -98,6 +101,21 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         sortOrder = true;
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 

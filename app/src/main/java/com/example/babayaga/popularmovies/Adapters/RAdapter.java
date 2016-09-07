@@ -84,6 +84,13 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             }
         });
 
+        holder.toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
 
     }
