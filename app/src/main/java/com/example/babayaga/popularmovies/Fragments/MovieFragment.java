@@ -4,11 +4,13 @@ package com.example.babayaga.popularmovies.Fragments;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.babayaga.popularmovies.Data.MoviesContract;
 import com.example.babayaga.popularmovies.Parser.JsonPArser;
 import com.example.babayaga.popularmovies.Models.MovieD;
 import com.example.babayaga.popularmovies.R;
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener , LoaderManager.LoaderCallbacks<Cursor> {
+public class MovieFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private ProgressDialog dialog;
     @BindView(R.id.recycler)
@@ -42,9 +45,25 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
     private String url = "";
     private Boolean sortOrder = false;
     private SharedPreferences preference;
-
+    private static final int MOVIES_LOADER = 0;
+    // For the forecast view we're showing only a small subset of the stored data.
+    // Specify the columns we need.
+    private static final String[] MOVIES_COLUMNS = {
+            MoviesContract._ID,
+            MoviesContract.TITLE,
+            MoviesContract.POPULARITY,
+            MoviesContract.AVERAGE,
+            MoviesContract.DATE,
+            MoviesContract.SYNOPSIS,
+            MoviesContract.BACK_IMG,
+            MoviesContract.THUMBNAIL_IMG,
+    };
     public MovieFragment() {
         // Required empty public constructor
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
 
@@ -101,21 +120,6 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         sortOrder = true;
-
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 

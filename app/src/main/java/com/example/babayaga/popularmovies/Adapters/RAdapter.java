@@ -1,7 +1,9 @@
 package com.example.babayaga.popularmovies.Adapters;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -19,6 +21,7 @@ import android.widget.ToggleButton;
 import com.example.babayaga.popularmovies.Activities.DetailActivity;
 import com.example.babayaga.popularmovies.Models.MovieD;
 import com.example.babayaga.popularmovies.R;
+import com.example.babayaga.popularmovies.utils.FavoriteAdder;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
@@ -34,11 +37,15 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
     private ArrayList<MovieD> arr = new ArrayList<>();
     private static Context con;
     int i=0;
+    FavoriteAdder favoriteAdder;
+    ContentValues values;
     private static String s="http://image.tmdb.org/t/p/w320/";
     public RAdapter(ArrayList<MovieD> arr,Context con)
     {
         this.arr=arr;
         this.con = con;
+        values = new ContentValues();
+
     }
 
     @Override
@@ -52,6 +59,8 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final RAdapter.ViewHolder holder, final int position) {
+
+        favoriteAdder = FavoriteAdder.getinstance(con);
 
         Picasso.with(con)
                 .load(s+arr.get(position).poster_path)
@@ -87,6 +96,12 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
         holder.toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(favoriteAdder.isFav(arr.get(position))) {
+                     favoriteAdder.addFav(arr.get(position));
+                }
+                else {
+
+                }
 
             }
         });
@@ -94,6 +109,10 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
 
     }
+
+    public Cursor doesExist()
+    {}
+
 
     @Override
     public int getItemCount() {
