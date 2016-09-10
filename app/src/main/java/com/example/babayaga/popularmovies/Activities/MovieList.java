@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.example.babayaga.popularmovies.Fragments.ErrorFragment;
 import com.example.babayaga.popularmovies.Fragments.MovieFragment;
 import com.example.babayaga.popularmovies.R;
+import com.facebook.stetho.Stetho;
 
 public class MovieList extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -23,6 +24,7 @@ public class MovieList extends AppCompatActivity implements SharedPreferences.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
+        Stetho.initializeWithDefaults(this);
 
         if(isNetworkAvailable()) {
             MovieFragment fragment = new MovieFragment();

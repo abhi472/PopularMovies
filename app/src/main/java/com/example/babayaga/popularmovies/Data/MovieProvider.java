@@ -20,7 +20,7 @@ public class MovieProvider extends ContentProvider {
     static final int MOVIE_BY_ID = 101;
     private MoviesHelper movieHelper;
     private static final String MOVIE_ID_SELECTION =
-            MoviesContract.TABLE_NAME + "." + MoviesContract._ID + " = ? ";
+            MoviesContract._ID + " = ? ";
 
     static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);

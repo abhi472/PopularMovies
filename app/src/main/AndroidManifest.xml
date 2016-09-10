@@ -25,6 +25,9 @@
             android:parentActivityName=".Activities.MovieList"
             android:theme="@style/AppTheme.NoActionBar"
             />
+        <provider
+            android:authorities="com.example.babayaga.popularmovies"
+            android:name=".Data.MovieProvider"/>
     </application>
 
 </manifest>

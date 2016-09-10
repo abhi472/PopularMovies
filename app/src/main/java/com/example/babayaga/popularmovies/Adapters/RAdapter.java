@@ -96,22 +96,19 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
         holder.toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(favoriteAdder.isFav(arr.get(position))) {
+//                if(favoriteAdder.isFav(arr.get(position))) {
                      favoriteAdder.addFav(arr.get(position));
-                }
-                else {
-
-                }
-
+//                }
+//                else {
+//                    favoriteAdder.remFav(arr.get(position));
+//                }
+//
             }
         });
 
 
 
     }
-
-    public Cursor doesExist()
-    {}
 
 
     @Override
