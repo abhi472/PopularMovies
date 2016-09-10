@@ -71,7 +71,7 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        url = "https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=7a83a78b4e9a7bdbd184461cedb61494";
+        url = "https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=4";
 
         View root = inflater.inflate(R.layout.fragment_movie, container, false);
         ButterKnife.bind(this,root);
@@ -96,9 +96,9 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
 
         if (check) {
             if (s.equalsIgnoreCase("1")) {
-                url = "http://api.themoviedb.org/3/movie/top_rated?api_key=7a83a78b4e9a7bdbd184461cedb61494";
+                url = "http://api.themoviedb.org/3/movie/top_rated?api_key=";
             } else if (s.equalsIgnoreCase("2")) {
-                url = "https://api.themoviedb.org/3/movie/popular?api_key=7a83a78b4e9a7bdbd184461cedb61494";
+                url = "https://api.themoviedb.org/3/movie/popular?api_key=";
 
             }
 
