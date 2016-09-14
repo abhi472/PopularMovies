@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies.Activities;
+package com.example.babayaga.popularmovies.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.babayaga.popularmovies.R;
 import com.squareup.picasso.Callback;
@@ -26,6 +27,8 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.play)
+    ImageView play;
     @BindView(R.id.scrim)
     ImageView scrim;
     @BindView(R.id.thumb)
@@ -60,17 +63,6 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        scrim = (ImageView) findViewById(R.id.scrim);
-//        thumb = (ImageView) findViewById(R.id.thumb);
-//        back = (ImageView) findViewById(R.id.image);
-//        title = (TextView) findViewById(R.id.title_movie);
-//        release = (TextView) findViewById(R.id.release);
-//        ratings = (TextView) findViewById(R.id.ratings);
-//        overview = (TextView) findViewById(R.id.synopsis);
-//        pthumb = (ProgressBar) findViewById(R.id.progressBar2);
-//        pback = (ProgressBar) findViewById(R.id.progressBar);
-
         setSupportActionBar(toolbar);
         setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,6 +110,12 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         ratings.setText(bundle.getString("vote"));
         release.setText(bundle.getString("release"));
         title.setText(name);
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"this",Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 

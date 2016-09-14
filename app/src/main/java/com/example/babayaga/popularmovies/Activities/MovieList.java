@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies.Activities;
+package com.example.babayaga.popularmovies.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.babayaga.popularmovies.Fragments.ErrorFragment;
-import com.example.babayaga.popularmovies.Fragments.MovieFragment;
+import com.example.babayaga.popularmovies.fragments.ErrorFragment;
+import com.example.babayaga.popularmovies.fragments.MovieFragment;
 import com.example.babayaga.popularmovies.R;
 import com.facebook.stetho.Stetho;
 

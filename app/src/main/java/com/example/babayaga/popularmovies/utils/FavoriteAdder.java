@@ -1,13 +1,12 @@
 package com.example.babayaga.popularmovies.utils;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Movie;
+import android.util.Log;
 
-import com.example.babayaga.popularmovies.Data.MoviesContract;
-import com.example.babayaga.popularmovies.Models.MovieD;
+import com.example.babayaga.popularmovies.data.MoviesContract;
+import com.example.babayaga.popularmovies.models.MovieResults;
 
 /**
  * Created by abhi on 9/4/16.
@@ -30,7 +29,7 @@ public class FavoriteAdder  {
 
     }
 
-    public  void addFav(MovieD movie)
+    public  void addFav(MovieResults movie)
     {
        ContentValues cv = new ContentValues();
         cv.put(MoviesContract._ID,movie.id);
@@ -42,20 +41,26 @@ public class FavoriteAdder  {
         cv.put(MoviesContract.BACK_IMG,movie.back_path);
         context.getContentResolver().insert(MoviesContract.CONTENT_URI,cv);
     }
-    public void remFav(MovieD movie) {
+    public void remFav(MovieResults movie) {
         context.getContentResolver().delete(
                 MoviesContract.CONTENT_URI,
                 MoviesContract._ID + " = " + movie.id,
                 null
         );
     }
-    public boolean isFav(MovieD movie)
+    public boolean isFav(MovieResults movie)
     {
        Cursor cursor = context.getContentResolver().query(MoviesContract.CONTENT_URI,null,MoviesContract._ID+" = "+movie.id,null,null);
-        if(cursor.getCount()<=0)
+        if(cursor.moveToFirst())
         {
+
+            Log.d("check", "isFav: "+ cursor.getCount()+ "  " +movie.id);
             return false;
         }
-        else return true;
+
+        else {
+            Log.d("check", "isFav: no ");
+            return true;
+        }
     }
 }

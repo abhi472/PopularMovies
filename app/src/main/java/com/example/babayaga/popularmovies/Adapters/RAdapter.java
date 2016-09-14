@@ -1,9 +1,8 @@
-package com.example.babayaga.popularmovies.Adapters;
+package com.example.babayaga.popularmovies.adapters;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -18,8 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.example.babayaga.popularmovies.Activities.DetailActivity;
-import com.example.babayaga.popularmovies.Models.MovieD;
+import com.example.babayaga.popularmovies.activities.DetailActivity;
+import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.utils.FavoriteAdder;
 import com.squareup.picasso.Picasso;
@@ -34,13 +33,13 @@ import butterknife.ButterKnife;
 
 public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
-    private ArrayList<MovieD> arr = new ArrayList<>();
+    private ArrayList<MovieResults> arr = new ArrayList<>();
     private static Context con;
     int i=0;
     FavoriteAdder favoriteAdder;
     ContentValues values;
     private static String s="http://image.tmdb.org/t/p/w320/";
-    public RAdapter(ArrayList<MovieD> arr,Context con)
+    public RAdapter(ArrayList<MovieResults> arr, Context con)
     {
         this.arr=arr;
         this.con = con;
@@ -93,16 +92,22 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             }
         });
 
+        if(!favoriteAdder.isFav(arr.get(position)))
+        {
+            holder.toggle.setChecked(true);
+        }
+
         holder.toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(favoriteAdder.isFav(arr.get(position))) {
+                if(favoriteAdder.isFav(arr.get(position))) {
                      favoriteAdder.addFav(arr.get(position));
-//                }
-//                else {
-//                    favoriteAdder.remFav(arr.get(position));
-//                }
-//
+
+                }
+                else {
+                    favoriteAdder.remFav(arr.get(position));
+                }
+
             }
         });
 

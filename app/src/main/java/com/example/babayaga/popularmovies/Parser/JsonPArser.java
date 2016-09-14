@@ -1,6 +1,7 @@
-package com.example.babayaga.popularmovies.Parser;
+package com.example.babayaga.popularmovies.parser;
 
-import com.example.babayaga.popularmovies.Models.MovieD;
+import com.example.babayaga.popularmovies.models.MovieList;
+import com.example.babayaga.popularmovies.models.MovieResults;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,31 +14,37 @@ import java.util.ArrayList;
  */
 
 public class JsonPArser {
-    ArrayList<MovieD> values = new ArrayList<>();
+    public MovieList mList = MovieList.getInstance();
+    ArrayList<MovieResults> results = new ArrayList<>();
+    String pages;
 
-    public ArrayList<MovieD> setData(String s) {
+    public MovieList setData(String s) {
+
         try {
             JSONObject jo = new JSONObject(s);
+            pages = jo.getString("page");
             JSONArray ja = jo.getJSONArray("results");
-            MovieD d;
+            MovieResults d;
             for(int i=0;i<ja.length();i++)
             {
-                d=new MovieD();
+                d=new MovieResults();
                 JSONObject jo2 = ja.getJSONObject(i);
-                d.id = jo2.getString("id");
-                d.title = jo2.getString("title");
-                d.overview = jo2.getString("overview");
-                d.poster_path = jo2.getString("poster_path");
-                d.release_date = jo2.getString("release_date");
-                d.vote_average = jo2.getString("vote_average");
-                d.back_path = jo2.getString("backdrop_path");
-                values.add(d);
+                d.setId(jo2.getString("id"));
+                d.setTitle(jo2.getString("title"));
+                d.setOverview(jo2.getString("overview"));
+                d.setPoster_path(jo2.getString("poster_path"));
+                d.setRelease_date(jo2.getString("release_date"));
+                d.setVote_average(jo2.getString("vote_average"));
+                d.setBack_path(jo2.getString("backdrop_path"));
+                results.add(d);
             }
+            mList.setResults(results);
+            mList.setPage(pages);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return values;
+        return mList;
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies.Fragments;
+package com.example.babayaga.popularmovies.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

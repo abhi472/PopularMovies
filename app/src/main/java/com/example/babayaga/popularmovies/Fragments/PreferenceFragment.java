@@ -1,15 +1,7 @@
-package com.example.babayaga.popularmovies.Fragments;
+package com.example.babayaga.popularmovies.fragments;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.babayaga.popularmovies.R;
 

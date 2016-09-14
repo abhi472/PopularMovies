@@ -1,4 +1,4 @@
-package com.example.babayaga.popularmovies.Data;
+package com.example.babayaga.popularmovies.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -26,6 +26,14 @@
                 android:scaleType="centerCrop"
                 android:background="@drawable/imge"
                 app:layout_collapseMode="pin"/>
+            <ImageView
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:id="@+id/play"
+                android:background="@drawable/play"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="99dp"
+                />
 
             <ImageView
                 android:id="@+id/scrim"
