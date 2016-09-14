@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.babayaga.popularmovies.R;
+import com.example.babayaga.popularmovies.utils.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -68,9 +69,9 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        String s1 = "http://image.tmdb.org/t/p/w500/";
+
         Picasso.with(this)
-                    .load(s1 + bundle.getString("back"))
+                    .load(Constants.getInstance().imageApi(bundle.getString("back"),"500"))
                     .placeholder(R.drawable.error) // optional
                     .error(R.drawable.error)         // optional
                     .into(back, new Callback() {
@@ -87,10 +88,9 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
                     });
 
 
-        String s2 = "http://image.tmdb.org/t/p/w185/";
         Picasso.with(this)
-                .load(s2 +bundle.getString("poster"))
-                .placeholder(R.drawable.no_image ) // optional
+                .load(Constants.getInstance().imageApi(bundle.getString("poster"),"185"))
+                .placeholder(R.drawable.no_image ) // optionals2 +
                 .error(R.drawable.no_image)         // optional
                 .into(thumb, new Callback() {
             @Override

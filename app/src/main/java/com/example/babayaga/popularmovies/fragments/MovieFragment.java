@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.babayaga.popularmovies.parser.JsonPArser;
 import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.adapters.RAdapter;
+import com.example.babayaga.popularmovies.utils.Constants;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -44,16 +46,6 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
     private static final int MOVIES_LOADER = 0;
     // For the forecast view we're showing only a small subset of the stored data.
     // Specify the columns we need.
-    private static final String[] MOVIES_COLUMNS = {
-            MoviesContract._ID,
-            MoviesContract.TITLE,
-            MoviesContract.POPULARITY,
-            MoviesContract.AVERAGE,
-            MoviesContract.DATE,
-            MoviesContract.SYNOPSIS,
-            MoviesContract.BACK_IMG,
-            MoviesContract.THUMBNAIL_IMG,
-    };
     public MovieFragment() {
         // Required empty public constructor
     }
@@ -67,7 +59,7 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        url = "https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=7a83a78b4e9a7bdbd184461cedb61494";
+        url = Constants.getInstance().ratedMoviesApi();
 
         View root = inflater.inflate(R.layout.fragment_movie, container, false);
         ButterKnife.bind(this,root);
@@ -92,9 +84,10 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
 
         if (check) {
             if (s.equalsIgnoreCase("1")) {
-                url = "http://api.themoviedb.org/3/movie/top_rated?api_key=7a83a78b4e9a7bdbd184461cedb61494";
+                url = Constants.getInstance().ratedMoviesApi();
             } else if (s.equalsIgnoreCase("2")) {
-                url = "https://api.themoviedb.org/3/movie/popular?api_key=7a83a78b4e9a7bdbd184461cedb61494";
+                Log.d("tag", "update: 2");
+                url = Constants.getInstance().popularMoviesApi();
 
             }
 

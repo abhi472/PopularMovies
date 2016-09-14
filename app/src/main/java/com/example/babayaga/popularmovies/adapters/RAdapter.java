@@ -20,6 +20,7 @@ import android.widget.ToggleButton;
 import com.example.babayaga.popularmovies.activities.DetailActivity;
 import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.R;
+import com.example.babayaga.popularmovies.utils.Constants;
 import com.example.babayaga.popularmovies.utils.FavoriteAdder;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -34,11 +35,11 @@ import butterknife.ButterKnife;
 public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
     private ArrayList<MovieResults> arr = new ArrayList<>();
-    private static Context con;
+    private  Context con;
     int i=0;
-    FavoriteAdder favoriteAdder;
-    ContentValues values;
-    private static String s="http://image.tmdb.org/t/p/w320/";
+    private FavoriteAdder favoriteAdder;
+    private ContentValues values;
+
     public RAdapter(ArrayList<MovieResults> arr, Context con)
     {
         this.arr=arr;
@@ -57,12 +58,12 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final RAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RAdapter.ViewHolder holder, int position) {
 
         favoriteAdder = FavoriteAdder.getinstance(con);
 
         Picasso.with(con)
-                .load(s+arr.get(position).poster_path)
+                .load(Constants.getInstance().imageApi(arr.get(position).poster_path,"320"))
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.no_image)         // optional
                 .into(holder.img);
@@ -82,12 +83,12 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(con,DetailActivity.class);
-                intent.putExtra("name",arr.get(position).title);
-                intent.putExtra("release",arr.get(position).release_date);
-                intent.putExtra("vote",arr.get(position).vote_average);
-                intent.putExtra("synopsis",arr.get(position).overview);
-                intent.putExtra("poster",arr.get(position).poster_path);
-                intent.putExtra("back",arr.get(position).back_path);
+                intent.putExtra("name",arr.get(holder.getAdapterPosition()).title);
+                intent.putExtra("release",arr.get(holder.getAdapterPosition()).release_date);
+                intent.putExtra("vote",arr.get(holder.getAdapterPosition()).vote_average);
+                intent.putExtra("synopsis",arr.get(holder.getAdapterPosition()).overview);
+                intent.putExtra("poster",arr.get(holder.getAdapterPosition()).poster_path);
+                intent.putExtra("back",arr.get(holder.getAdapterPosition()).back_path);
                 con.startActivity(intent);
             }
         });
@@ -100,12 +101,12 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
         holder.toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(favoriteAdder.isFav(arr.get(position))) {
-                     favoriteAdder.addFav(arr.get(position));
+                if(favoriteAdder.isFav(arr.get(holder.getAdapterPosition()))) {
+                     favoriteAdder.addFav(arr.get(holder.getAdapterPosition()));
 
                 }
                 else {
-                    favoriteAdder.remFav(arr.get(position));
+                    favoriteAdder.remFav(arr.get(holder.getAdapterPosition()));
                 }
 
             }
@@ -121,7 +122,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
         return arr.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.img) ImageView img;
         @BindView(R.id.card) CardView cardView;
