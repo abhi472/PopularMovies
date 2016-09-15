@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class MovieList {
 
-    public static MovieList mList;
+    private static MovieList mList;
 
     public static MovieList getInstance() {
         if(mList!=null)

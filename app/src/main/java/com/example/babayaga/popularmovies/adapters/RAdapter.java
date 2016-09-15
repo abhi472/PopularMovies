@@ -63,12 +63,12 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
         favoriteAdder = FavoriteAdder.getinstance(con);
 
         Picasso.with(con)
-                .load(Constants.getInstance().imageApi(arr.get(position).poster_path,"320"))
+                .load(Constants.getInstance().imageApi(arr.get(position).getPoster_path(),"320"))
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.no_image)         // optional
                 .into(holder.img);
         Log.d("TAG", "onBindViewHolder: " +position);
-        holder.name.setText(arr.get(position).title);
+        holder.name.setText(arr.get(position).getTitle());
 
         WindowManager wm = (WindowManager) con.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -83,12 +83,13 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(con,DetailActivity.class);
-                intent.putExtra("name",arr.get(holder.getAdapterPosition()).title);
-                intent.putExtra("release",arr.get(holder.getAdapterPosition()).release_date);
-                intent.putExtra("vote",arr.get(holder.getAdapterPosition()).vote_average);
-                intent.putExtra("synopsis",arr.get(holder.getAdapterPosition()).overview);
-                intent.putExtra("poster",arr.get(holder.getAdapterPosition()).poster_path);
-                intent.putExtra("back",arr.get(holder.getAdapterPosition()).back_path);
+                intent.putExtra("id",arr.get(holder.getAdapterPosition()).getId());
+                intent.putExtra("name",arr.get(holder.getAdapterPosition()).getTitle());
+                intent.putExtra("release",arr.get(holder.getAdapterPosition()).getRelease_date());
+                intent.putExtra("vote",arr.get(holder.getAdapterPosition()).getVote_average());
+                intent.putExtra("synopsis",arr.get(holder.getAdapterPosition()).getOverview());
+                intent.putExtra("poster",arr.get(holder.getAdapterPosition()).getPoster_path());
+                intent.putExtra("back",arr.get(holder.getAdapterPosition()).getBack_path());
                 con.startActivity(intent);
             }
         });

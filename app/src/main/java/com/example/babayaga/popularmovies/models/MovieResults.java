@@ -5,13 +5,13 @@ package com.example.babayaga.popularmovies.models;
  */
 
 public class MovieResults {
-        public String id;
-        public String title;
-        public String overview;
-        public String vote_average;
-        public String release_date;
-        public String poster_path;
-        public String back_path;
+        private String id;
+        private String title;
+        private String overview;
+        private String vote_average;
+        private String release_date;
+        private String poster_path;
+        private String back_path;
 
         public String getId() {
                 return id;

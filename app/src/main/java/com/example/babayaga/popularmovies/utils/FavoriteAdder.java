@@ -32,29 +32,29 @@ public class FavoriteAdder  {
     public  void addFav(MovieResults movie)
     {
        ContentValues cv = new ContentValues();
-        cv.put(MoviesContract._ID,movie.id);
-        cv.put(MoviesContract.TITLE,movie.title);
-        cv.put(MoviesContract.DATE,movie.release_date);
-        cv.put(MoviesContract.AVERAGE,movie.vote_average);
-        cv.put(MoviesContract.SYNOPSIS,movie.overview);
-        cv.put(MoviesContract.THUMBNAIL_IMG,movie.poster_path);
-        cv.put(MoviesContract.BACK_IMG,movie.back_path);
+        cv.put(MoviesContract._ID,movie.getId());
+        cv.put(MoviesContract.TITLE,movie.getTitle());
+        cv.put(MoviesContract.DATE,movie.getRelease_date());
+        cv.put(MoviesContract.AVERAGE,movie.getVote_average());
+        cv.put(MoviesContract.SYNOPSIS,movie.getOverview());
+        cv.put(MoviesContract.THUMBNAIL_IMG,movie.getPoster_path());
+        cv.put(MoviesContract.BACK_IMG,movie.getBack_path());
         context.getContentResolver().insert(MoviesContract.CONTENT_URI,cv);
     }
     public void remFav(MovieResults movie) {
         context.getContentResolver().delete(
                 MoviesContract.CONTENT_URI,
-                MoviesContract._ID + " = " + movie.id,
+                MoviesContract._ID + " = " + movie.getId(),
                 null
         );
     }
     public boolean isFav(MovieResults movie)
     {
-       Cursor cursor = context.getContentResolver().query(MoviesContract.CONTENT_URI,null,MoviesContract._ID+" = "+movie.id,null,null);
+       Cursor cursor = context.getContentResolver().query(MoviesContract.CONTENT_URI,null,MoviesContract._ID+" = "+movie.getId(),null,null);
         if(cursor.moveToFirst())
         {
 
-            Log.d("check", "isFav: "+ cursor.getCount()+ "  " +movie.id);
+            Log.d("check", "isFav: "+ cursor.getCount()+ "  " +movie.getId());
             return false;
         }
 

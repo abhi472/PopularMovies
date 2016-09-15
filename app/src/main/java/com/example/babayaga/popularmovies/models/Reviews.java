@@ -7,6 +7,18 @@ import java.util.ArrayList;
  */
 public class Reviews {
 
+    private static Reviews reviews;
+
+    public static Reviews getInstance() {
+        if(reviews!=null)
+            return reviews;
+        else
+        {
+            reviews = new Reviews();
+            return reviews;
+        }
+    }
+
     private String id;
     private String page;
     private ArrayList<Results> results = new ArrayList<>();

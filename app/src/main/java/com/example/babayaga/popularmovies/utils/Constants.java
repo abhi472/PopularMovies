@@ -7,7 +7,7 @@ package com.example.babayaga.popularmovies.utils;
 public class Constants {
 
     private String BASE_URL = "http://api.themoviedb.org/3/movie/";
-    private String API_KEY = "api_key=7a83a78b4e9a7bdbd184461cedb61494";
+    private String API_KEY = "api_key=";
     private static Constants constants;
 
     public static Constants getInstance()
@@ -15,13 +15,13 @@ public class Constants {
         if(constants ==  null)
         {
             constants = new Constants();
-        }//http://api.themoviedb.org/3/movie/top_rated?api_key=7a83a78b4e9a7bdbd184461cedb61494
+        }
         return constants;
     }
 
     public String popularMoviesApi()
     {
-       return BASE_URL + "popularity?" + API_KEY;
+       return BASE_URL + "popular?" + API_KEY;
     }
     public String ratedMoviesApi()
     {
