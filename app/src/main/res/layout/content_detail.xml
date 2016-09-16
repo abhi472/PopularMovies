@@ -34,7 +34,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
             android:layout_height="wrap_content"
             android:layout_below="@+id/Synopsis"
             android:layout_marginTop="4dp"
-            android:text="Mexican band Cafe Tacuba celebrates 15 years of making--and often revolutionizing--Spanish rock with Un Viaje. This lush, luxurious live set includes three discs of music and one electrifying DVD. The group has culled the best moments from a two-night stand in Oct. 2004 at the Palacio de los Deportes in Mexico City, and the results are consistently electric. Every song, every rhythm, every guitar lick, every laugh is important, a not-to-be-missed moment. Cafe Tacuba's potent mix of music and message is a powerful thing, and the group thrives in its unflinchingly earnest, sweetly sincere approach to its art. Even during backstage interviews and recording studio hijinks, each member seems wholly pleased to be a part of the process. Throughout the proceedings, Cafe Tacuba's ardent fans thank them with hoots, hollers and constant singalongs to almost every song, making Un Viaje a joyous trip for everyone involved."/>
+            android:text="Mexican band Cafe Tacuba werful thing, and the group thrives in its unflinchingly earnest, sweetly sincere approach to its art. Even during backstage interviews and recording studio hijinks, each member seems wholly pleased to be a part of the process. Throughout the proceedings, Cafe Tacuba's ardent fans thank them with hoots, hollers and constant singalongs to almost every song, making Un Viaje a joyous trip for everyone involved."/>
 
         <ProgressBar
             style="?android:attr/progressBarStyleSmall"
@@ -47,6 +47,31 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
             android:layout_above="@+id/Synopsis"
             android:layout_alignLeft="@+id/thumb"
             android:layout_alignStart="@+id/thumb" />
+
+        <View
+            android:id="@+id/Reviews"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/synopsis" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/reviews"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/Reviews"/>
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/progressBar3"
+            android:layout_marginTop="10dp"
+
+            android:layout_below="@+id/Reviews"
+             />
 
 
     </RelativeLayout>
