@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
     android:layout_height="match_parent">
 
 <TextView
     android:id="@+id/author"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Author : "
-    android:textSize="26sp"
+    android:textSize="24sp"
+    android:text="kjjhjkhkjhkj"
+    android:layout_below="@+id/reviewText"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
     />
+    <View
+        android:layout_width="40dp"
+        android:layout_height="0.8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/reviewText"
+        android:layout_toLeftOf="@+id/author"
+        android:background="@color/black"/>
+    <TextView
+        android:id="@+id/reviewText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@color/black"
+        android:layout_below="@+id/author"
+        android:layout_marginTop="10dp"
+        android:layout_height="0.8dp"/>
 
 
-</LinearLayout>
+</RelativeLayout>
