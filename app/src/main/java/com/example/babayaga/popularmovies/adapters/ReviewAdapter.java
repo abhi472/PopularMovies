@@ -46,7 +46,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.text.setText(reviewResults.get(position).getContent());
+        holder.text.setText(reviewResults.get(position).getContent().trim());
         Log.d("reviewadapter", "onBindViewHolder: "+reviewResults.get(position).getContent());
         holder.author.setText(reviewResults.get(position).getAuthor());
 
@@ -56,7 +56,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     public int getItemCount() {
         return reviewResults.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.reviewText)

@@ -86,10 +86,6 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     @BindView(R.id.progressBar2)
     ProgressBar pthumb;
     private String name;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
 
     @Override
@@ -187,7 +183,6 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
 
 
         rlv.setLayoutParams(layout);
-        Log.d("offset", "onOffsetChanged: " + f + " " + appBarHeight+" "+toolBarHeight+" "+scroll+" "+verticalOffset+" "+f2+" "+px);
     }
 
     @Override
