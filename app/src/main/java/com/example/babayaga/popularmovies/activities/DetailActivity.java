@@ -1,25 +1,34 @@
 package com.example.babayaga.popularmovies.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -56,8 +65,11 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @Nullable
     @BindView(R.id.rlv)
     RelativeLayout rlv;
+    @BindView(R.id.card)
+    CardView rlv2;
     @BindView(R.id.progressBar3)
     ProgressBar progressBar;
 
@@ -86,6 +98,7 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     @BindView(R.id.progressBar2)
     ProgressBar pthumb;
     private String name;
+    private int or=0;
     private GoogleApiClient client;
 
     @Override
@@ -96,6 +109,10 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         ButterKnife.setDebug(true);
 
         app.addOnOffsetChangedListener(this);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            or=1;
+        }
 
 
         Intent intent = getIntent();
@@ -103,9 +120,7 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         setSupportActionBar(toolbar);
         setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         Detailtasks dTask = new Detailtasks();
-        Log.d("id", "onCreate: " + bundle.getString("id"));
         dTask.execute(Constants.getInstance().reviewApi(bundle.getString("id")));
 
 
@@ -165,9 +180,11 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
         //measuring for alpha
-
+        int width,height;
         Resources resources = this.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
+        width = metrics.widthPixels;
+        height = metrics.heightPixels;
         float d = ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         float px = 54 * d;
         int imageWidth = thumb.getMeasuredWidth();
@@ -178,11 +195,22 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         Float f = (scroll / ((float) appBarHeight - toolBarHeight)) * 255;
         Float f2 = (scroll / (appBarHeight - toolBarHeight)) * px;
         scrim.getBackground().setAlpha(255 - Math.round(f));
-        RelativeLayout.LayoutParams layout = (RelativeLayout.LayoutParams) rlv.getLayoutParams();
-        layout.setMargins(Math.round(10*d),Math.round(f2+(10*d)),0,0);
+        if(or==0) {
+            RelativeLayout.LayoutParams layout = (RelativeLayout.LayoutParams) rlv.getLayoutParams();
+            layout.setMargins(Math.round(10 * d), Math.round(f2 + (10 * d)), 0, 0);
 
 
-        rlv.setLayoutParams(layout);
+            rlv.setLayoutParams(layout);
+        }
+        else
+        {
+            CardView.LayoutParams layout = (CardView.LayoutParams) rlv2.getLayoutParams();
+            layout.width = 2*width/3;
+            layout.gravity = Gravity.CENTER_HORIZONTAL;
+
+            rlv2.setLayoutParams(layout);
+
+        }
     }
 
     @Override
@@ -249,17 +277,10 @@ public class DetailActivity extends AppCompatActivity implements AppBarLayout.On
         protected void onPostExecute(String s) {
             progressBar.setVisibility(View.GONE);
             reviewList.setVisibility(View.VISIBLE);
+            reviewList.setNestedScrollingEnabled(false);
             JsonPArser jp = new JsonPArser();
             ArrayList<Results> arr = jp.setReviewData(s).getResults();
             ReviewAdapter rAdapter = new ReviewAdapter(getApplicationContext(), arr);
-//            LinearLayoutManager lmanager = new LinearLayoutManager(getApplicationContext()){
-//
-//                    @Override
-//                    public boolean canScrollVertically() {
-//                        return false;
-//                    }
-//                };
-//            reviewList.setLayoutManager(lmanager);
             reviewList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             reviewList.setAdapter(rAdapter);
         }
