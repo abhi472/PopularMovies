@@ -18,9 +18,12 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.babayaga.popularmovies.activities.DetailActivity;
+import com.example.babayaga.popularmovies.callbacks.TwoPaneClickListener;
 import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.utils.Constants;
+import com.example.babayaga.popularmovies.utils.CustomImageView;
+import com.example.babayaga.popularmovies.utils.DisplayUtils;
 import com.example.babayaga.popularmovies.utils.FavoriteAdder;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -36,15 +39,16 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
     private ArrayList<MovieResults> arr = new ArrayList<>();
     private  Context con;
-    int i=0;
+    private int grid = 2;
     private FavoriteAdder favoriteAdder;
     private ContentValues values;
 
-    public RAdapter(ArrayList<MovieResults> arr, Context con)
+    public RAdapter(ArrayList<MovieResults> arr, Context con,int grid)
     {
         this.arr=arr;
         this.con = con;
         values = new ContentValues();
+        this.grid = grid;
 
     }
 
@@ -67,21 +71,14 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.no_image)         // optional
                 .into(holder.img);
-        Log.d("TAG", "onBindViewHolder: " +position);
         holder.name.setText(arr.get(position).getTitle());
 
-        WindowManager wm = (WindowManager) con.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
-        final float width = metrics.widthPixels;
-        final float height = 1.5f*width/2;
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int)width/2,(int) height);
-        params.setMargins(5,5,5,5);
-        holder.cardView.setLayoutParams(params);
+
+        //holder.cardView.setLayoutParams(params());
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(con,DetailActivity.class);
                 intent.putExtra("id",arr.get(holder.getAdapterPosition()).getId());
                 intent.putExtra("name",arr.get(holder.getAdapterPosition()).getTitle());
@@ -90,7 +87,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
                 intent.putExtra("synopsis",arr.get(holder.getAdapterPosition()).getOverview());
                 intent.putExtra("poster",arr.get(holder.getAdapterPosition()).getPoster_path());
                 intent.putExtra("back",arr.get(holder.getAdapterPosition()).getBack_path());
-                con.startActivity(intent);
+                ((TwoPaneClickListener)con).OnCardclick(intent);
             }
         });
 
@@ -125,10 +122,14 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.img) ImageView img;
-        @BindView(R.id.card) CardView cardView;
-        @BindView(R.id.fav) ToggleButton toggle;
-        @BindView(R.id.name) TextView name;
+        @BindView(R.id.img)
+        CustomImageView img;
+        @BindView(R.id.card)
+        CardView cardView;
+        @BindView(R.id.fav)
+        ToggleButton toggle;
+        @BindView(R.id.name)
+        TextView name;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -136,5 +137,14 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             ButterKnife.setDebug(true);
 
         }
+    }
+
+    private FrameLayout.LayoutParams params()
+    {
+        final float width =  (DisplayUtils.getInstance(con).returnWidth());
+        final float height = 1.5f*width/grid;
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int)width/grid - (grid-1)*5,(int) height);
+        params.setMargins(5,5,5,5);
+        return params;
     }
 }

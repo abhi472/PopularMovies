@@ -5,19 +5,39 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.example.babayaga.popularmovies.callbacks.TwoPaneClickListener;
+import com.example.babayaga.popularmovies.fragments.DetailFragment;
 import com.example.babayaga.popularmovies.fragments.ErrorFragment;
 import com.example.babayaga.popularmovies.fragments.MovieFragment;
 import com.example.babayaga.popularmovies.R;
+import com.example.babayaga.popularmovies.utils.Constants;
 import com.facebook.stetho.Stetho;
 
-public class MovieList extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MovieList extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener , TwoPaneClickListener{
+
+    @BindView(R.id.fragment_container)
+    RelativeLayout frag_container;
+    @Nullable
+    @BindView(R.id.detail_container)
+    RelativeLayout mFragment;
+    Boolean mTwoPane = false;
+
+
 
 
     @Override
@@ -25,11 +45,20 @@ public class MovieList extends AppCompatActivity implements SharedPreferences.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
         Stetho.initializeWithDefaults(this);
+        ButterKnife.bind(this);
 
-        if(isNetworkAvailable()) {
+
+        if(mFragment != null)
+        {
+            mTwoPane = true;
+        }
+        Log.d("tag", "onPost: "+mTwoPane);
+
+
+        if(Constants.getInstance().isNetworkAvailable(this)) {
             MovieFragment fragment = new MovieFragment();
 
-            if (findViewById(R.id.fragment_container) != null) {
+            if (frag_container != null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
                 transaction.replace(R.id.fragment_container, fragment);
@@ -77,11 +106,26 @@ public class MovieList extends AppCompatActivity implements SharedPreferences.On
 
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
+    @Override
+    public void OnCardclick(Intent intent) {
+        if(mTwoPane)
+        {
+            DetailFragment detailFragment = new DetailFragment();
+            mFragment.setVisibility(View.VISIBLE);
+            Bundle bundle = intent.getExtras();
+            detailFragment.setArguments(bundle);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.detail_container, detailFragment);
+
+            transaction.commit();
+
+        }
+        else
+        {
+            startActivity(intent);
+        }
     }
 }
 

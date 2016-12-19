@@ -21,6 +21,7 @@ import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.adapters.RAdapter;
 import com.example.babayaga.popularmovies.utils.Constants;
+import com.example.babayaga.popularmovies.utils.NewGridLayoutManager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -40,6 +41,7 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
     private ProgressDialog dialog;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
+    private int grid = 2;
     private String url = "";
     private Boolean sortOrder = false;
     private SharedPreferences preference;
@@ -65,7 +67,11 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
         ButterKnife.bind(this,root);
         ButterKnife.setDebug(true);
         preference = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));//context and spansizes as the attributes
+        if(recyclerView.getTag().equals("simple_land"))
+        {
+            grid = 3;
+        }
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),grid));//context and spansizes as the attributes
         preference.registerOnSharedPreferenceChangeListener(this);
 
 
@@ -153,7 +159,8 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
             dialog.dismiss();
             JsonPArser jp = new JsonPArser();
             ArrayList<MovieResults> arr = jp.setData(s).getResults();
-            RAdapter rAdapter = new RAdapter(arr, getContext());
+            Log.d("tag", "onPostExecute: "+grid);
+            RAdapter rAdapter = new RAdapter(arr, getContext(),grid);
             recyclerView.setAdapter(rAdapter);
         }
 

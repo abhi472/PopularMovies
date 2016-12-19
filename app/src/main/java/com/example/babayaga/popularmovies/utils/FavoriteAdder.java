@@ -50,17 +50,17 @@ public class FavoriteAdder  {
     }
     public boolean isFav(MovieResults movie)
     {
-       Cursor cursor = context.getContentResolver().query(MoviesContract.CONTENT_URI,null,MoviesContract._ID+" = "+movie.getId(),null,null);
-        if(cursor.moveToFirst())
-        {
+        boolean favorite = false;
+       Cursor cursor = context.getContentResolver().query(MoviesContract.CONTENT_URI,
+               null,
+               MoviesContract._ID+" = "+movie.getId()
+               ,null,
+               null);
 
-            Log.d("check", "isFav: "+ cursor.getCount()+ "  " +movie.getId());
-            return false;
+        if(cursor!=null) {
+            favorite = !(cursor.moveToFirst());
+            cursor.close();
         }
-
-        else {
-            Log.d("check", "isFav: no ");
-            return true;
-        }
+        return favorite;
     }
 }

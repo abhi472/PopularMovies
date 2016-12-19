@@ -4,17 +4,22 @@
     android:layout_height="match_parent"
     >
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:id="@+id/no_internet"
-        android:layout_gravity="center"
-        android:background="@drawable/no_internet2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginBottom="123dp" />
+
+        <ImageView
+            android:id="@+id/image_no_movies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_no_movies"
+            android:layout_marginTop="@dimen/activity_horizontal_margin_half"
+            android:gravity="center"
+            android:text="@string/movies_grid_no_movies"
+            android:textStyle="bold"/>
+
 
 </RelativeLayout>

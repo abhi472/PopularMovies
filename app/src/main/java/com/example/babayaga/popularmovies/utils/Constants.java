@@ -1,5 +1,9 @@
 package com.example.babayaga.popularmovies.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 /**
  * Created by abhishek on 14/9/16.
  */
@@ -9,6 +13,14 @@ public class Constants {
     private String BASE_URL = "http://api.themoviedb.org/3/movie/";
     private String API_KEY = "api_key=fa5ff31bd45d999f220e58e02d3bdcb8";
     private static Constants constants;
+
+
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     public static Constants getInstance()
     {
