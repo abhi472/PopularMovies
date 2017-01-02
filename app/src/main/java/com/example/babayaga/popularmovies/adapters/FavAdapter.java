@@ -3,6 +3,7 @@ package com.example.babayaga.popularmovies.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Movie;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.example.babayaga.popularmovies.models.MovieList;
 import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.utils.Constants;
 import com.example.babayaga.popularmovies.utils.DisplayUtils;
+import com.example.babayaga.popularmovies.utils.FavoriteAdder;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -23,6 +25,8 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
     private Context context;
     private FavAdapterHolder holder;
     private MovieResults results;
+    private FavoriteAdder favoriteAdder;
+
 
 
     public FavAdapter(Cursor cursor, Context context) {
@@ -35,6 +39,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
     public void onBindViewHolder(FavAdapterHolder viewHolder, Cursor cursor) {
 
 
+        favoriteAdder = FavoriteAdder.getinstance(context);
         final float width = DisplayUtils.getInstance(context).returnWidth();
         final float height = 1.5f * width / 2;
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int) width / 2, (int) height);
@@ -49,6 +54,14 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
                     .error(R.drawable.no_image)         // optional
                     .into(holder.img);
         }
+        holder.toggle.setChecked(true);
+        holder.toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              favoriteAdder.remFav(getItem(holder.getAdapterPosition()));
+
+            }
+        });
     }
 
     @Override
@@ -59,8 +72,19 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
         return holder;
     }
 
-    @Override
-    public int getItemCount() {
-        return super.getItemCount();
+    @Nullable
+    public MovieResults getItem(int position) {
+        Cursor cursor = getCursor();
+        if (cursor == null) {
+            return null;
+        }
+        if (position < 0 || position > cursor.getCount()) {
+            return null;
+        }
+        cursor.moveToFirst();
+        for (int i = 0; i < position; i++) {
+            cursor.moveToNext();
+        }
+        return MovieList.fromCursor(cursor);
     }
 }
