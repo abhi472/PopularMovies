@@ -1,5 +1,9 @@
 package com.example.babayaga.popularmovies.models;
 
+import android.database.Cursor;
+
+import com.example.babayaga.popularmovies.data.MoviesContract;
+
 import java.util.ArrayList;
 
 /**
@@ -37,5 +41,24 @@ public class MovieList {
 
     public String getPage() {
         return page;
+    }
+
+    public static MovieResults fromCursor(Cursor cursor) {
+        MovieResults movie = new MovieResults();
+        movie.setId(
+                cursor.getString(cursor.getColumnIndex(MoviesContract._ID)));
+        movie.setTitle(
+                cursor.getString(cursor.getColumnIndex(MoviesContract.TITLE)));
+        movie.setOverview(
+                cursor.getString(cursor.getColumnIndex(MoviesContract.SYNOPSIS)));
+        movie.setRelease_date(
+                cursor.getString(cursor.getColumnIndex(MoviesContract.DATE)));
+        movie.setPoster_path(
+                cursor.getString(cursor.getColumnIndex(MoviesContract.THUMBNAIL_IMG)));
+        movie.setVote_average(
+                cursor.getString(cursor.getColumnIndex(MoviesContract.AVERAGE)));
+        movie.setBack_path(
+                cursor.getString(cursor.getColumnIndex(MoviesContract.BACK_IMG)));
+        return movie;
     }
 }
