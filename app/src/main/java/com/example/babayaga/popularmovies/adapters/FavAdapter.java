@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Movie;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,6 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
     private FavoriteAdder favoriteAdder;
 
 
-
     public FavAdapter(Cursor cursor, Context context) {
         super(cursor);
         this.context = context;
@@ -36,7 +36,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
     }
 
     @Override
-    public void onBindViewHolder(FavAdapterHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(FavAdapterHolder viewHolder, Cursor cursor, final int position) {
 
 
         favoriteAdder = FavoriteAdder.getinstance(context);
@@ -49,7 +49,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
             results = MovieList.fromCursor(cursor);
             holder.name.setText(results.getTitle());
             Picasso.with(context)
-                    .load(Constants.getInstance().imageApi(results.getPoster_path(),"320"))
+                    .load(Constants.getInstance().imageApi(results.getPoster_path(), "320"))
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)         // optional
                     .into(holder.img);
@@ -58,7 +58,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
         holder.toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              favoriteAdder.remFav(getItem(holder.getAdapterPosition()));
+
 
             }
         });
@@ -72,19 +72,5 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
         return holder;
     }
 
-    @Nullable
-    public MovieResults getItem(int position) {
-        Cursor cursor = getCursor();
-        if (cursor == null) {
-            return null;
-        }
-        if (position < 0 || position > cursor.getCount()) {
-            return null;
-        }
-        cursor.moveToFirst();
-        for (int i = 0; i < position; i++) {
-            cursor.moveToNext();
-        }
-        return MovieList.fromCursor(cursor);
-    }
+
 }
