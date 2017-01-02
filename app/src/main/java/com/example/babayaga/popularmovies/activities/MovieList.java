@@ -97,6 +97,10 @@ public class MovieList extends AppCompatActivity implements SharedPreferences.On
             Intent intent = getIntent();
             startActivity(intent);
         }
+        if (item.getItemId() == R.id.settings3) {
+            Intent intent = new Intent(MovieList.this,FavoriteActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 

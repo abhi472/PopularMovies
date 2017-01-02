@@ -3,7 +3,7 @@
     package="com.example.babayaga.popularmovies">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -21,17 +21,23 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:parentActivityName=".activities.MovieList" />
-        <activity android:name=".activities.DetailActivity"
+        <activity
+            android:name=".activities.DetailActivity"
             android:parentActivityName=".activities.MovieList"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <provider
-            android:authorities="com.example.babayaga.popularmovies"
-            android:name=".data.MovieProvider"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+            android:name=".data.MovieProvider"
+            android:authorities="com.example.babayaga.popularmovies" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".activities.FavoriteActivity"></activity>
     </application>
 
 </manifest>

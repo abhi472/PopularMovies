@@ -9,4 +9,8 @@
         android:icon="@drawable/ic_autorenew_white_24dp"
         android:title="@string/refresh"
         app:showAsAction="always"/>
+    <item android:id="@+id/settings3"
+        android:icon="@drawable/heart_emp"
+        android:title="@string/refresh"
+        app:showAsAction="always"/>
     </menu>
