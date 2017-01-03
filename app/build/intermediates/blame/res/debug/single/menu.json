@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/menu/menu.xml",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/menu/menu.xml"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/menu/detail_menu.xml",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/menu/detail_menu.xml"
+    }
+]

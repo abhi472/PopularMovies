@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_favorite_border_white_24dp.png",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/drawable-xxxhdpi/ic_favorite_border_white_24dp.png"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_autorenew_white_24dp.png",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/drawable-xxxhdpi/ic_autorenew_white_24dp.png"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_favorite_white_24dp.png",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/drawable-xxxhdpi/ic_favorite_white_24dp.png"
+    }
+]

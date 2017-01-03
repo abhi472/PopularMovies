@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/layout-land/activity_detail.xml",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/layout-land/activity_detail.xml"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/layout-land/fragment_movie.xml",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/layout-land/fragment_movie.xml"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/layout-land/content_detail.xml",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/layout-land/content_detail.xml"
+    }
+]

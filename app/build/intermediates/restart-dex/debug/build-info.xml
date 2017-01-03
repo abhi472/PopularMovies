@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    api-level="22"
+    density="xxhdpi"
+    format="8"
+    plugin-version="2.2.0"
+    timestamp="105565239074314"
+    token="-6313171971399382501"
+    verifier="FULL_BUILD_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="0" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="0" />
+    <task
+        name="verifier"
+        duration="0" />
+
+    <artifact
+        location="/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/outputs/apk/app-debug.apk"
+        type="MAIN" />
+
+    <build
+        timestamp="105565239074314"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/outputs/apk/app-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>

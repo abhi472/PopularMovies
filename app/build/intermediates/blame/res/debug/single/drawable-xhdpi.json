@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/drawable-xhdpi/ic_favorite_white_24dp.png",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/drawable-xhdpi/ic_favorite_white_24dp.png"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_full_open_on_phone.png",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/drawable-xhdpi/common_full_open_on_phone.png"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/drawable-xhdpi/ic_favorite_border_white_24dp.png",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/drawable-xhdpi/ic_favorite_border_white_24dp.png"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/drawable-xhdpi/ic_autorenew_white_24dp.png",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/drawable-xhdpi/ic_autorenew_white_24dp.png"
+    }
+]

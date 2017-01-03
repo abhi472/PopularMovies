@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/layout-sw720dp-v13/activity_movie_list.xml",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/layout-sw720dp/activity_movie_list.xml"
+    },
+    {
+        "merged": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/build/intermediates/res/merged/debug/layout-sw720dp-v13/activity_detail.xml",
+        "source": "/Users/abhi/AndroidStudioProjects/PopularMovies/app/src/main/res/layout-sw720dp/activity_detail.xml"
+    }
+]
