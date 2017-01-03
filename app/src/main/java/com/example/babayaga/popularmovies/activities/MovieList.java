@@ -131,6 +131,40 @@ public class MovieList extends AppCompatActivity implements SharedPreferences.On
             startActivity(intent);
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("start", "onStart: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("stop", "onStart: ");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("destroy", "onStart: ");
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("pause", "onStart: ");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("resume", "onStart: ");
+
+    }
 }
 
 

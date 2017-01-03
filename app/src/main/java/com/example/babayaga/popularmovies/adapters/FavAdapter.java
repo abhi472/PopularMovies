@@ -58,7 +58,8 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
         holder.toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                favoriteAdder.remFav(getItem(position));
+                //Log.d("TAG", "onClick: "+FavAdapter.super.getItemCount()+" "+ holder.getAdapterPosition()+" "+position);
 
             }
         });
@@ -71,6 +72,20 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
         holder = new FavAdapterHolder(view);
         return holder;
     }
-
+    @Nullable
+    public MovieResults getItem(int position) {
+        Cursor cursor = getCursor();
+        if (cursor == null) {
+            return null;
+        }
+        if (position < 0 || position > cursor.getCount()) {
+            return null;
+        }
+        cursor.moveToFirst();
+        for (int i = 0; i < position; i++) {
+            cursor.moveToNext();
+        }
+        return MovieList.fromCursor(cursor);
+    }
 
 }

@@ -20,6 +20,7 @@ package com.example.babayaga.popularmovies.adapters;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.babayaga.popularmovies.data.MoviesContract;
 
@@ -45,6 +46,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         if (mCursor != null) {
             mCursor.registerDataSetObserver(mDataSetObserver);
         }
+        Log.d("cursor", "CursorRecyclerViewAdapter: ");
     }
 
     public Cursor getCursor() {
@@ -91,6 +93,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
      */
     public void changeCursor(Cursor cursor) {
         Cursor old = swapCursor(cursor);
+        Log.d("cursor", "changecursor: ");
         if (old != null) {
             old.close();
         }
@@ -123,6 +126,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
             notifyDataSetChanged();
             //There is no notifyDataSetInvalidated() method in RecyclerView.Adapter
         }
+        Log.d("cursor", "swapcursor: ");
         return oldCursor;
     }
 
@@ -132,6 +136,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
             super.onChanged();
             mDataValid = true;
             notifyDataSetChanged();
+            Log.d("cursor", "onChanged: ");
         }
 
         @Override
@@ -139,6 +144,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
             super.onInvalidated();
             mDataValid = false;
             notifyDataSetChanged();
+            Log.d("cursor", "invalidated ");
             //There is no notifyDataSetInvalidated() method in RecyclerView.Adapter
         }
     }
