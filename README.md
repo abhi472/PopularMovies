@@ -11,9 +11,7 @@ This app is fully adaptive with diiferent screen sizes and orientations.
 
 ![screen](../master/art/seven.png)
 
-![screen](../master/art/one.gif)
-
-![screen](../master/art/two.gif)
+![screen](../master/art/one.gif) ![screen](../master/art/two.gif)
 
 ![screen](../master/art/three.gif)
 
