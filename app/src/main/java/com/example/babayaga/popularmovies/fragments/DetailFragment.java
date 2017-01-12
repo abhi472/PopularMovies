@@ -14,6 +14,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,7 +31,9 @@ import android.widget.Toast;
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.activities.DetailActivity;
 import com.example.babayaga.popularmovies.adapters.ReviewAdapter;
+import com.example.babayaga.popularmovies.adapters.TrailerAdapter;
 import com.example.babayaga.popularmovies.models.Results;
+import com.example.babayaga.popularmovies.models.TrailerResults;
 import com.example.babayaga.popularmovies.parser.JsonPArser;
 import com.example.babayaga.popularmovies.utils.Constants;
 import com.example.babayaga.popularmovies.utils.DisplayUtils;
@@ -93,10 +96,15 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
     @Nullable
     @BindView(R.id.progressBar)
     ProgressBar pback;
+    @BindView(R.id.progressBar4)
+    ProgressBar pBar;
+    @BindView(R.id.trailers)
+    RecyclerView trailers;
     @BindView(R.id.progressBar2)
     ProgressBar pthumb;
     private String name;
     Bundle bundle;
+    TrailerTask tTask;
 
 
     public DetailFragment() {
@@ -124,8 +132,9 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
 
 
 
-        Detailtasks dTask = new Detailtasks();
-        dTask.execute(Constants.getInstance().reviewApi(bundle.getString("id")));
+
+
+
         if(app != null)
             onePaneConfig();
         else
@@ -141,7 +150,10 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
 
 
         Detailtasks dTask = new Detailtasks();
-        dTask.execute(Constants.getInstance().reviewApi(bundle.getString("id")));
+        dTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,Constants.getInstance().reviewApi(bundle.getString("id")));
+        tTask = new TrailerTask();
+        tTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,Constants.getInstance().trailerApi(bundle.getString("id")));
+
 
 
 
@@ -195,6 +207,11 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
     }
     private void twoPaneConfig()
     {
+        Detailtasks dTask = new Detailtasks();
+        dTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,Constants.getInstance().reviewApi(bundle.getString("id")));
+        tTask = new TrailerTask();
+        tTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,Constants.getInstance().trailerApi(bundle.getString("id")));
+
         Picasso.with(getContext())
                 .load(Constants.getInstance().imageApi(bundle.getString("poster"), "185"))
                 .placeholder(R.drawable.no_image) // optionals2 +
@@ -294,23 +311,72 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
 
 
     }
+    class TrailerTask extends AsyncTask<String,String,String>
+    {
+        StringBuilder result = new StringBuilder();
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                URL url = new URL(params[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result.toString();
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            trailers.setVisibility(View.VISIBLE);
+            pBar.setVisibility(View.GONE);
+            JsonPArser jp = new JsonPArser();
+            ArrayList<TrailerResults> arr = jp.setTrailerData(s).getResults();
+            TrailerAdapter rAdapter = new TrailerAdapter(getActivity(), arr);
+
+            LinearLayoutManager layoutManager
+                    = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            trailers.setLayoutManager(layoutManager);
+
+            trailers.setAdapter(rAdapter);
+        }
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.detail_menu, menu);
+        if(app != null) {
+            inflater.inflate(R.menu.detail_menu, menu);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.settings) {
-            String url = "https://www.google.co.in/#q=" + name + " movie";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
+        if(app != null) {
+
+            if (item.getItemId() == R.id.settings) {
+                String url = "https://www.google.co.in/#q=" + name + " movie";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
         }
         return super.onOptionsItemSelected(item);
 
     }
+
+
+
 }

@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +69,8 @@ import butterknife.ButterKnife;
 
 public class DetailActivity extends AppCompatActivity {
 
+    DetailFragment fragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         if(Constants.getInstance().isNetworkAvailable(this)) {
-            DetailFragment fragment = new DetailFragment();
+            fragment = new DetailFragment();
             fragment.setArguments(bundle);
 
             if (findViewById(R.id.fragment_container) != null) {

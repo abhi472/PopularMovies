@@ -7,4 +7,5 @@
     <color name="textColor">#F44336</color>
     <color name="grey">#c2c2c2</color>
     <color name="light_blue">#50d2d2d2</color>
+    <color name="splash">#E3F2FD</color>
 </resources>

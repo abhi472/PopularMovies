@@ -77,10 +77,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
                 android:background="@color/grey"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/thumb" />
             <TextView
@@ -122,16 +122,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
                 android:background="@color/grey"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/synopsis" />
             <TextView
                 android:id="@+id/review_text"
                 android:layout_width="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_height="wrap_content"
                 android:text="Reviews"
                 android:textColor="@color/black"
@@ -145,13 +147,49 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/review_text"/>
             <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/progressBar3"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/review_text"
+                />
+            <View
+                android:id="@+id/Trailers"
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/grey"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/reviews" />
+            <TextView
+                android:id="@+id/trailer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Trailers"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_below="@+id/Trailers" />
+            <android.support.v7.widget.RecyclerView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/trailers"
+                android:visibility="gone"
+                android:layout_marginBottom="16dp"
+                android:layout_below="@+id/trailer_text"/>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/progressBar4"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/trailer_text"
                 />
 
 

@@ -26,12 +26,14 @@ public  class FavAdapterHolder extends RecyclerView.ViewHolder{
     ToggleButton toggle;
     @BindView(R.id.name)
     TextView name;
+    View view;
 
     public  FavAdapterHolder(View itemView) {
         super(itemView);
 
         ButterKnife.bind(this,itemView);
         ButterKnife.setDebug(true);
+        view = itemView;
 
     }
 

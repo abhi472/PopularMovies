@@ -1,5 +1,7 @@
 package com.example.babayaga.popularmovies.callbacks;
 
+import android.database.Cursor;
+
 import com.example.babayaga.popularmovies.models.MovieResults;
 
 /**
@@ -8,5 +10,5 @@ import com.example.babayaga.popularmovies.models.MovieResults;
 
 public interface ToggleClickFav {
 
-     void onToggleClick(MovieResults results);
+     void onToggleClick(MovieResults results, int size);
 }

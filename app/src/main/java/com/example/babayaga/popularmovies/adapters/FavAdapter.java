@@ -1,10 +1,12 @@
 package com.example.babayaga.popularmovies.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Movie;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +46,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
     }
 
     @Override
-    public void onBindViewHolder(FavAdapterHolder viewHolder, Cursor cursor, int position) {
+    public void onBindViewHolder(FavAdapterHolder viewHolder, final Cursor cursor, int position) {
 
 
 
@@ -60,6 +62,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
 
 
         final int pos = position;
+        View view = holder.view;
 
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +83,8 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
         holder.toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleClickFav.onToggleClick(getItem(pos));
+                toggleClickFav.onToggleClick(getItem(pos),getItemCount());
+
 
             }
         });

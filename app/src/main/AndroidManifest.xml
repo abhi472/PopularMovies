@@ -11,7 +11,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MovieList">
+        <activity
+            android:name=".activities.SplashScreen"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +21,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.MovieList"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
             android:name=".activities.SettingsActivity"
-            android:parentActivityName=".activities.MovieList" />
+            android:parentActivityName=".activities.MovieList"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.DetailActivity"
             android:parentActivityName=".activities.MovieList"
@@ -37,7 +44,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".activities.FavoriteActivity"></activity>
+        <activity android:name=".activities.FavoriteActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

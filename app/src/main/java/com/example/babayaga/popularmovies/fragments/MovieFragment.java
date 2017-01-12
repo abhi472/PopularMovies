@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.babayaga.popularmovies.data.MoviesContract;
 import com.example.babayaga.popularmovies.models.MovieList;
@@ -36,11 +37,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class MovieFragment extends Fragment{
 
-    private ProgressDialog dialog;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
+    @BindView(R.id.bar)
+    ProgressBar bar;
     private int grid = 2;
     private String url = "";
     private Boolean sortOrder = false;
@@ -72,23 +74,16 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
             grid = 3;
         }
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),grid));//context and spansizes as the attributes
-        preference.registerOnSharedPreferenceChangeListener(this);
 
-
-        String s = preference.getString("pref_syncConnectionType", "1");
-        sortOrder = true;
-        update(s, sortOrder);
-        sortOrder = false;
-
+        update(preference.getString("pref_syncConnectionType", "1"));
 
         return root;
     }
 
 
-    public void update(String s, Boolean check) {
+    public void update(String s) {
 
 
-        if (check) {
             if (s.equalsIgnoreCase("1")) {
                 url = Constants.getInstance().ratedMoviesApi();
             } else if (s.equalsIgnoreCase("2")) {
@@ -100,33 +95,12 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
             tasks task = new tasks();
             task.execute(url);
         }
-    }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        String s = preference.getString("pref_syncConnectionType", "1");
-        update(s, sortOrder);
-        sortOrder = false;
-
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        sortOrder = true;
-
-    }
 
 
     class tasks extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
-            dialog = new ProgressDialog(getContext());
-            dialog.setMessage(getString(R.string.loading));
-            dialog.setIndeterminate(true);
-            dialog.setCancelable(false);
-            dialog.show();
         }
 
         StringBuilder result = new StringBuilder();
@@ -156,7 +130,8 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
 
         @Override
         protected void onPostExecute(String s) {
-            dialog.dismiss();
+            bar.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
             JsonPArser jp = new JsonPArser();
             ArrayList<MovieResults> arr = jp.setData(s).getResults();
             Log.d("tag", "onPostExecute: "+grid);

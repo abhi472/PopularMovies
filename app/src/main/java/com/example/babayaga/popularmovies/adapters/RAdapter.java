@@ -3,6 +3,7 @@ package com.example.babayaga.popularmovies.adapters;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -97,10 +98,13 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             public void onClick(View view) {
                 if(favoriteAdder.isFav(arr.get(holder.getAdapterPosition()))) {
                      favoriteAdder.addFav(arr.get(holder.getAdapterPosition()));
+                    Snackbar.make(holder.view,arr.get(holder.getAdapterPosition()).getTitle()+" added as favorite",Snackbar.LENGTH_SHORT).show();
 
                 }
                 else {
                     favoriteAdder.remFav(arr.get(holder.getAdapterPosition()));
+                    Snackbar.make(holder.view,arr.get(holder.getAdapterPosition()).getTitle()+" removed from favorites",Snackbar.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -109,6 +113,8 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
 
     }
+
+
 
 
     @Override
@@ -126,11 +132,12 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
         ToggleButton toggle;
         @BindView(R.id.name)
         TextView name;
-
+         View view;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
             ButterKnife.setDebug(true);
+            view = itemView;
 
         }
     }

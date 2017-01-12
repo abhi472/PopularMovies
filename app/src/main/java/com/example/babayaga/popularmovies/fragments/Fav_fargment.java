@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.adapters.FavAdapter;
@@ -38,6 +39,8 @@ public class Fav_fargment extends Fragment implements
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
     FavAdapter adapter;
+    @BindView(R.id.bar)
+    ProgressBar bar;
 
 
     @Nullable
@@ -45,6 +48,8 @@ public class Fav_fargment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie,container,false);
         ButterKnife.bind(this,view);
+        bar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         if(recyclerView.getTag().equals("simple_land"))
         {
             grid = 3;

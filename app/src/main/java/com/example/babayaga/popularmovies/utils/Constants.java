@@ -63,4 +63,5 @@ public class Constants {
     {
         return BASE_URL + id +"/reviews?" + API_KEY;
     }
+    public String thumbNail(String id) {return "http://img.youtube.com/vi/"+id+"/mqdefault.jpg";}
 }
