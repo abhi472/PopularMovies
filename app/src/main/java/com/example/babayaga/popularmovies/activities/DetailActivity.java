@@ -70,6 +70,7 @@ import butterknife.ButterKnife;
 public class DetailActivity extends AppCompatActivity {
 
     DetailFragment fragment;
+    int a;
 
 
     @Override
