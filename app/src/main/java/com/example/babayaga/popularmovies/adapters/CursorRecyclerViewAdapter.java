@@ -24,6 +24,8 @@ import android.util.Log;
 
 import com.example.babayaga.popularmovies.data.MoviesContract;
 
+import java.util.HashMap;
+
 /**
  * Created by skyfishjy on 10/31/14.
  */
@@ -37,6 +39,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
     private int mRowIdColumn;
 
     private DataSetObserver mDataSetObserver;
+
 
     public CursorRecyclerViewAdapter(Cursor cursor) {
         mCursor = cursor;

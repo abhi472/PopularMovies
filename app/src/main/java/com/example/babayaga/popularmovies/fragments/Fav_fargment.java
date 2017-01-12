@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -18,7 +19,10 @@ import android.view.ViewGroup;
 
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.adapters.FavAdapter;
+import com.example.babayaga.popularmovies.callbacks.ToggleClickFav;
 import com.example.babayaga.popularmovies.data.MoviesContract;
+import com.example.babayaga.popularmovies.models.MovieResults;
+import com.example.babayaga.popularmovies.utils.FavoriteAdder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,16 +39,18 @@ public class Fav_fargment extends Fragment implements
     RecyclerView recyclerView;
     FavAdapter adapter;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie,container,false);
         ButterKnife.bind(this,view);
-        adapter = new FavAdapter(null,getContext());
         if(recyclerView.getTag().equals("simple_land"))
         {
             grid = 3;
         }
+        adapter = new FavAdapter(null,getContext());
+
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),grid));
         recyclerView.setAdapter(adapter);
         return view;
@@ -80,4 +86,6 @@ public class Fav_fargment extends Fragment implements
         getLoaderManager().initLoader(MOVIES_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }
+
+
 }
