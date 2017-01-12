@@ -160,7 +160,7 @@ public class MovieFragment extends Fragment implements SharedPreferences.OnShare
             JsonPArser jp = new JsonPArser();
             ArrayList<MovieResults> arr = jp.setData(s).getResults();
             Log.d("tag", "onPostExecute: "+grid);
-            RAdapter rAdapter = new RAdapter(arr, getContext(),grid);
+            RAdapter rAdapter = new RAdapter(arr, getContext());
             recyclerView.setAdapter(rAdapter);
         }
 

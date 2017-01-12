@@ -39,16 +39,12 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
 
     private ArrayList<MovieResults> arr = new ArrayList<>();
     private  Context con;
-    private int grid = 2;
     private FavoriteAdder favoriteAdder;
-    private ContentValues values;
 
-    public RAdapter(ArrayList<MovieResults> arr, Context con,int grid)
+    public RAdapter(ArrayList<MovieResults> arr, Context con)
     {
         this.arr=arr;
         this.con = con;
-        values = new ContentValues();
-        this.grid = grid;
 
     }
 
@@ -139,12 +135,4 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
         }
     }
 
-    private FrameLayout.LayoutParams params()
-    {
-        final float width =  (DisplayUtils.getInstance(con).returnWidth());
-        final float height = 1.5f*width/grid;
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams((int)width/grid - (grid-1)*5,(int) height);
-        params.setMargins(5,5,5,5);
-        return params;
-    }
 }

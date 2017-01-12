@@ -15,7 +15,8 @@ public class FavoriteActivity_ViewBinding<T extends FavoriteActivity> implements
   public FavoriteActivity_ViewBinding(T target, Finder finder, Object source) {
     this.target = target;
 
-    target.frag_container = finder.findRequiredViewAsType(source, R.id.activity_favorite, "field 'frag_container'", RelativeLayout.class);
+    target.frag_container = finder.findRequiredViewAsType(source, R.id.fragment_container, "field 'frag_container'", RelativeLayout.class);
+    target.mFragment = finder.findOptionalViewAsType(source, R.id.detail_container, "field 'mFragment'", RelativeLayout.class);
   }
 
   @Override
@@ -24,6 +25,7 @@ public class FavoriteActivity_ViewBinding<T extends FavoriteActivity> implements
     if (target == null) throw new IllegalStateException("Bindings already cleared.");
 
     target.frag_container = null;
+    target.mFragment = null;
 
     this.target = null;
   }
