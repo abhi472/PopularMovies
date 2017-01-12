@@ -11,7 +11,7 @@ import android.net.NetworkInfo;
 public class Constants {
 
     private String BASE_URL = "http://api.themoviedb.org/3/movie/";
-    private String API_KEY = "api_key=fa5ff31bd45d999f220e58e02d3bdcb8";
+    private String API_KEY = "";
     private static Constants constants;
 
 
