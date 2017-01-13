@@ -54,7 +54,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
             MovieResults results = MovieList.fromCursor(cursor);
             holder.name.setText(results.getTitle());
             Picasso.with(context)
-                    .load(Constants.getInstance().imageApi(results.getPoster_path(), "320"))
+                    .load(Constants.getInstance().imageApi(results.getPosterPath(), "320"))
                     .placeholder(R.drawable.no_image)
                     .error(R.drawable.no_image)         // optional
                     .into(holder.img);
@@ -69,13 +69,7 @@ public class FavAdapter extends CursorRecyclerViewAdapter<FavAdapterHolder> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(context,DetailActivity.class);
-                intent.putExtra("id",getItem(pos).getId());
-                intent.putExtra("name",getItem(pos).getTitle());
-                intent.putExtra("release",getItem(pos).getRelease_date());
-                intent.putExtra("vote",getItem(pos).getVote_average());
-                intent.putExtra("synopsis",getItem(pos).getOverview());
-                intent.putExtra("poster",getItem(pos).getPoster_path());
-                intent.putExtra("back",getItem(pos).getBack_path());
+                intent.putExtra("movie",getItem(pos));
                 ((TwoPaneClickListener)context).OnCardclick(intent);
             }
         });

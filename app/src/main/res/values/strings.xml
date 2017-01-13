@@ -10,5 +10,8 @@
     <string name="refresh">refresh</string>
     <string name="movies_grid_no_movies">Not Connected</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="timeout">Request timed out</string>
+    <string name="nointernet">Not Connected</string>
+    <string name="generic_error">some unknown error occured</string>
 
 </resources>

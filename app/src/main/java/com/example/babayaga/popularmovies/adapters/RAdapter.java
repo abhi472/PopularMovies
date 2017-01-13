@@ -64,7 +64,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
         favoriteAdder = FavoriteAdder.getinstance(con);
 
         Picasso.with(con)
-                .load(Constants.getInstance().imageApi(arr.get(position).getPoster_path(),"320"))
+                .load(Constants.getInstance().imageApi(arr.get(position).getPosterPath(),"320"))
                 .placeholder(R.drawable.no_image)
                 .error(R.drawable.no_image)         // optional
                 .into(holder.img);
@@ -77,13 +77,7 @@ public class RAdapter extends RecyclerView.Adapter<RAdapter.ViewHolder> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(con,DetailActivity.class);
-                intent.putExtra("id",arr.get(holder.getAdapterPosition()).getId());
-                intent.putExtra("name",arr.get(holder.getAdapterPosition()).getTitle());
-                intent.putExtra("release",arr.get(holder.getAdapterPosition()).getRelease_date());
-                intent.putExtra("vote",arr.get(holder.getAdapterPosition()).getVote_average());
-                intent.putExtra("synopsis",arr.get(holder.getAdapterPosition()).getOverview());
-                intent.putExtra("poster",arr.get(holder.getAdapterPosition()).getPoster_path());
-                intent.putExtra("back",arr.get(holder.getAdapterPosition()).getBack_path());
+                intent.putExtra("movie",arr.get(holder.getAdapterPosition()));
                 ((TwoPaneClickListener)con).OnCardclick(intent);
             }
         });

@@ -1,5 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,23 +26,27 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor"
                 android:layout_toRightOf="@+id/thumb"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp"/>
+                android:layout_toEndOf="@id/thumb"
+                android:layout_marginLeft="@dimen/textMarginDetail"
+                android:layout_marginStart="@dimen/textMarginDetail"
+                android:layout_marginTop="@dimen/textMarginDetail"
+                android:textSize="@dimen/textSize18"/>
             <TextView
                 android:id="@+id/ratings_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/horizontalMarginHalaf"
                 android:layout_toRightOf="@+id/thumb"
-                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@id/thumb"
+                android:layout_marginLeft="@dimen/textMarginDetail"
+                android:layout_marginStart="@dimen/horizontalMarginHalaf"
 
                 android:layout_below="@id/title_movie"/>
             <TextView
                 android:id="@+id/ratings"
                 android:layout_width="wrap_content"
                 android:layout_below="@+id/title_movie"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/horizontalMarginHalaf"
                 android:layout_toEndOf="@+id/ratings_text"
                 android:layout_toRightOf="@id/ratings_text"
                 android:layout_height="wrap_content"
@@ -53,8 +58,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ratings_text"
                 android:layout_marginTop="2dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="@dimen/textMarginDetail"
+                android:layout_marginStart="@dimen/textMarginDetail"
                 android:layout_toRightOf="@+id/thumb"
+                android:layout_toEndOf="@id/thumb"
                 />
             <TextView
                 android:id="@+id/release"
@@ -66,9 +73,9 @@
                 android:layout_toEndOf="@+id/Release"/>
 
             <ImageView
-                android:layout_width="120dp"
-                android:layout_height="180dp"
-                android:background="@color/black"
+                android:layout_width="@dimen/posterWidth"
+                android:layout_height="@dimen/posterHeight"
+                android:background="@drawable/no_image"
                 android:focusableInTouchMode="true"
                 android:id="@+id/thumb" />
 
@@ -77,42 +84,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
                 android:background="@color/grey"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="@dimen/horizontalMarginStatic"
+                android:layout_marginRight="@dimen/horizontalMarginStatic"
+                android:layout_marginEnd="@dimen/horizontalMarginStatic"
+                android:layout_marginStart="@dimen/horizontalMarginStatic"
+                android:layout_marginTop="@dimen/textMarginDetail"
                 android:layout_below="@+id/thumb" />
             <TextView
                 android:id="@+id/synopsis_text"
                 android:layout_width="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/horizontalMarginStatic"
                 android:layout_height="wrap_content"
                 android:text="Synopsis"
-                android:textSize="18sp"
+                android:textSize="@dimen/textSize18"
                 android:textColor="@color/black"
                 android:layout_below="@+id/Synopsis"
                 />
             <TextView
                 android:id="@+id/synopsis"
                 android:layout_width="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="16dp"
+                android:paddingLeft="@dimen/horizontalMarginStatic"
+                android:paddingRight="@dimen/horizontalMarginStatic"
+                android:paddingStart="@dimen/horizontalMarginStatic"
+                android:paddingEnd="@dimen/horizontalMarginStatic"
+                android:paddingBottom="@dimen/horizontalMarginStatic"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/synopsis_text"
-                android:text="Mexican band Cafe Tacuba werful thing, and the group thrives in its unflinchingly earnest, sweetly sincere approach to its art. Even during backstage interviews and recording studio hijinks, each member seems wholly pleased to be a part of the process. Throughout the proceedings, Cafe Tacuba's ardent fans thank them with hoots, hollers and constant singalongs to almost every song, making Un Viaje a joyous trip for everyone involved."/>
+                tools:text="Mexican band Cafe Tacuba werful thing, and the group thrives in its unflinchingly earnest, sweetly sincere approach to its art. Even during backstage interviews and recording studio hijinks, each member seems wholly pleased to be a part of the process. Throughout the proceedings, Cafe Tacuba's ardent fans thank them with hoots, hollers and constant singalongs to almost every song, making Un Viaje a joyous trip for everyone involved."/>
 
             <ProgressBar
                 style="?android:attr/progressBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="52dp"
-                android:layout_marginStart="52dp"
+                android:layout_marginLeft="@dimen/posterbarMargin"
+                android:layout_marginStart="@dimen/posterbarMargin"
                 android:id="@+id/progressBar2"
-                android:layout_marginBottom="90dp"
+                android:layout_marginBottom="@dimen/posterBarBottomMargin"
                 android:layout_above="@+id/Synopsis"
                 android:layout_alignLeft="@+id/thumb"
                 android:layout_alignStart="@+id/thumb" />
@@ -122,18 +129,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
                 android:background="@color/grey"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="@dimen/horizontalMarginStatic"
+                android:layout_marginRight="@dimen/horizontalMarginStatic"
+                android:layout_marginEnd="@dimen/horizontalMarginStatic"
+                android:layout_marginStart="@dimen/horizontalMarginStatic"
+                android:layout_marginTop="@dimen/textMarginDetail"
                 android:layout_below="@+id/synopsis" />
             <TextView
                 android:id="@+id/review_text"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="@dimen/horizontalMarginStatic"
+                android:layout_marginStart="@dimen/horizontalMarginStatic"
+                android:layout_marginTop="@dimen/horizontalMarginStatic"
                 android:layout_height="wrap_content"
                 android:text="Reviews"
                 android:textColor="@color/black"
@@ -144,14 +151,14 @@
                 android:layout_width="match_parent"
                 android:id="@+id/reviews"
                 android:visibility="gone"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/textMarginDetail"
                 android:layout_below="@+id/review_text"/>
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/progressBar3"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/textMarginDetail"
                 android:layout_below="@+id/review_text"
                 />
             <View
@@ -159,18 +166,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
                 android:background="@color/grey"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="@dimen/horizontalMarginStatic"
+                android:layout_marginRight="@dimen/horizontalMarginStatic"
+                android:layout_marginEnd="@dimen/horizontalMarginStatic"
+                android:layout_marginStart="@dimen/horizontalMarginStatic"
+                android:layout_marginTop="@dimen/textMarginDetail"
                 android:layout_below="@+id/reviews" />
             <TextView
                 android:id="@+id/trailer_text"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/horizontalMarginStatic"
+                android:layout_marginStart="@dimen/horizontalMarginStatic"
+                android:layout_marginTop="@dimen/horizontalMarginStatic"
+                android:layout_height="wrap_content"
                 android:text="Trailers"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -180,7 +188,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/trailers"
                 android:visibility="gone"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/horizontalMarginStatic"
                 android:layout_below="@+id/trailer_text"/>
             <ProgressBar
                 android:layout_width="wrap_content"

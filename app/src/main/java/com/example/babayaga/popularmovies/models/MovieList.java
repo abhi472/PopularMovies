@@ -3,6 +3,7 @@ package com.example.babayaga.popularmovies.models;
 import android.database.Cursor;
 
 import com.example.babayaga.popularmovies.data.MoviesContract;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
@@ -23,15 +24,18 @@ public class MovieList {
         }
     }
 
-    public String page;
-    public ArrayList<MovieResults> results = new ArrayList<>();
+    private Integer page;
+    private ArrayList<MovieResults> results = null;
+    @JsonProperty("total_results")
+    private Integer totalResults;
+    @JsonProperty("total_pages")
+    private Integer totalPages;
 
-    public void setResults(ArrayList<MovieResults> results)
-    {
-        this.results = results;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setPage(String page) {
+    public void setPage(Integer page) {
         this.page = page;
     }
 
@@ -39,25 +43,44 @@ public class MovieList {
         return results;
     }
 
-    public String getPage() {
-        return page;
+    public void setResults(ArrayList<MovieResults> results) {
+        this.results = results;
     }
+
+    public Integer getTotalResults() {
+        return totalResults;
+    }
+
+    public void setTotalResults(Integer totalResults) {
+        this.totalResults = totalResults;
+    }
+
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
+    }
+
+
+
 
     public static MovieResults fromCursor(Cursor cursor) {
         MovieResults movie = new MovieResults();
         movie.setId(
-                cursor.getString(cursor.getColumnIndex(MoviesContract._ID)));
+                Integer.parseInt(cursor.getString(cursor.getColumnIndex(MoviesContract._ID))));
         movie.setTitle(
                 cursor.getString(cursor.getColumnIndex(MoviesContract.TITLE)));
         movie.setOverview(
                 cursor.getString(cursor.getColumnIndex(MoviesContract.SYNOPSIS)));
-        movie.setRelease_date(
+        movie.setReleaseDate(
                 cursor.getString(cursor.getColumnIndex(MoviesContract.DATE)));
-        movie.setPoster_path(
+        movie.setPosterPath(
                 cursor.getString(cursor.getColumnIndex(MoviesContract.THUMBNAIL_IMG)));
-        movie.setVote_average(
-                cursor.getString(cursor.getColumnIndex(MoviesContract.AVERAGE)));
-        movie.setBack_path(
+        movie.setVoteAverage(
+                Double.parseDouble(cursor.getString(cursor.getColumnIndex(MoviesContract.AVERAGE))));
+        movie.setBackdropPath(
                 cursor.getString(cursor.getColumnIndex(MoviesContract.BACK_IMG)));
         return movie;
     }

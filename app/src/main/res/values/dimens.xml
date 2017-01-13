@@ -6,4 +6,18 @@
     <dimen name="cardh">270dp</dimen>
     <dimen name="activity_horizontal_margin_half">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="bannerSize">250dp</dimen>
+    <dimen name="bannerProgressBar">52dp</dimen>
+    <dimen name="bannerMargin">99dp</dimen>
+    <dimen name="textMarginDetail">10dp</dimen>
+    <dimen name="textSize18">18sp</dimen>
+    <dimen name="horizontalMarginHalaf">8dp</dimen>
+    <dimen name="posterWidth">120dp</dimen>
+    <dimen name="posterHeight">180dp</dimen>
+    <dimen name="horizontalMarginStatic">16dp</dimen>
+    <dimen name="posterbarMargin">52dp</dimen>
+    <dimen name="posterBarBottomMargin">90dp</dimen>
+    <dimen name="DescBarHeight">42dp</dimen>
+    <dimen name="descTitle15">15sp</dimen>
+    <dimen name="toggleSize">24dp</dimen>
 </resources>

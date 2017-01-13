@@ -45,7 +45,6 @@ import com.example.babayaga.popularmovies.fragments.ErrorFragment;
 import com.example.babayaga.popularmovies.fragments.MovieFragment;
 import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.models.Results;
-import com.example.babayaga.popularmovies.parser.JsonPArser;
 import com.example.babayaga.popularmovies.utils.Constants;
 import com.example.babayaga.popularmovies.utils.DisplayUtils;
 import com.google.android.gms.appindexing.Action;
@@ -82,7 +81,6 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        if(Constants.getInstance().isNetworkAvailable(this)) {
             fragment = new DetailFragment();
             fragment.setArguments(bundle);
 
@@ -94,17 +92,8 @@ public class DetailActivity extends AppCompatActivity {
                 transaction.commit();
             }
         }
-        else
-        {       ErrorFragment fragment = new ErrorFragment();
-            if (findViewById(R.id.fragment_container) != null) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-                transaction.replace(R.id.fragment_container, fragment);
-
-                transaction.commit();
-            }
-        }
     }
 
 
-}
+

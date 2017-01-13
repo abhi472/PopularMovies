@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.babayaga.popularmovies.R;
@@ -53,7 +54,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.themoviedb.org/review/"+reviewResults.get(holder.getAdapterPosition()).getId()));
-                context.startActivity(browserIntent);
+                if (browserIntent.resolveActivity(context.getPackageManager()) != null) {
+                    context.startActivity(browserIntent);
+                }
+                else{
+                    Toast.makeText(context,"no apps available",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

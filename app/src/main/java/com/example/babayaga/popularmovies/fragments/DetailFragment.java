@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -32,9 +33,12 @@ import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.activities.DetailActivity;
 import com.example.babayaga.popularmovies.adapters.ReviewAdapter;
 import com.example.babayaga.popularmovies.adapters.TrailerAdapter;
+import com.example.babayaga.popularmovies.apis.ApiManager;
+import com.example.babayaga.popularmovies.apis.ModelManagerNew;
+import com.example.babayaga.popularmovies.callbacks.ICallBack;
+import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.models.Results;
 import com.example.babayaga.popularmovies.models.TrailerResults;
-import com.example.babayaga.popularmovies.parser.JsonPArser;
 import com.example.babayaga.popularmovies.utils.Constants;
 import com.example.babayaga.popularmovies.utils.DisplayUtils;
 import com.squareup.picasso.Callback;
@@ -56,7 +60,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetChangedListener {
+public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetChangedListener, ICallBack {
 
     @Nullable
     @BindView(R.id.toolbar)
@@ -104,7 +108,7 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
     ProgressBar pthumb;
     private String name;
     Bundle bundle;
-    TrailerTask tTask;
+    MovieResults results;
 
 
     public DetailFragment() {
@@ -129,110 +133,104 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        results = bundle.getParcelable("movie");
 
 
+        name = results.getTitle();
+        overview.setText(results.getOverview());
+        ratings.setText(results.getVoteAverage().toString());
+        release.setText(results.getReleaseDate());
+        title.setText(name);
 
 
-
-
-        if(app != null)
-            onePaneConfig();
+        if (app != null)
+            onePaneConfig(root);
         else
-            twoPaneConfig();
-
+            twoPaneConfig(root);
         return root;
 
     }
 
-    private void onePaneConfig()
-    {
+    private void onePaneConfig(View view) {
         app.addOnOffsetChangedListener(this);
 
 
-        Detailtasks dTask = new Detailtasks();
-        dTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,Constants.getInstance().reviewApi(bundle.getString("id")));
-        tTask = new TrailerTask();
-        tTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,Constants.getInstance().trailerApi(bundle.getString("id")));
+        if (Constants.getInstance().isNetworkAvailable(getContext())) {
+
+            ApiManager.newInstance(this).requestGet(Constants.getInstance().reviewApi(results.getId().toString()),1);
+            ApiManager.newInstance(this).requestGet(Constants.getInstance().trailerApi(results.getId().toString()),2);
+            Picasso.with(getContext())
+                    .load(Constants.getInstance().imageApi(results.getBackdropPath(), "500"))
+                    .placeholder(R.drawable.error) // optional
+                    .error(R.drawable.error)         // optional
+                    .into(back, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                            play.setVisibility(View.VISIBLE);
+                            pback.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            pback.setVisibility(View.GONE);
+
+                        }
+                    });
 
 
+            Picasso.with(getContext())
+                    .load(Constants.getInstance().imageApi(results.getPosterPath(), "185"))
+                    .placeholder(R.drawable.no_image) // optionals2 +
+                    .error(R.drawable.no_image)         // optional
+                    .into(thumb, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            pthumb.setVisibility(View.GONE);
+                        }
 
+                        @Override
+                        public void onError() {
+                            pthumb.setVisibility(View.GONE);
+                        }
+                    });
+        } else {
+            pback.setVisibility(View.GONE);
+            pthumb.setVisibility(View.GONE);
+            pBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+            Snackbar.make(view, "Additional Data requires Internet Connectivity", Snackbar.LENGTH_LONG).show();
+        }
 
-        Picasso.with(getContext())
-                .load(Constants.getInstance().imageApi(bundle.getString("back"), "500"))
-                .placeholder(R.drawable.error) // optional
-                .error(R.drawable.error)         // optional
-                .into(back, new Callback() {
-                    @Override
-                    public void onSuccess() {
-
-                        play.setVisibility(View.VISIBLE);
-                        pback.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError() {
-                        pback.setVisibility(View.GONE);
-
-                    }
-                });
-
-
-        Picasso.with(getContext())
-                .load(Constants.getInstance().imageApi(bundle.getString("poster"), "185"))
-                .placeholder(R.drawable.no_image) // optionals2 +
-                .error(R.drawable.no_image)         // optional
-                .into(thumb, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        pthumb.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError() {
-                        pthumb.setVisibility(View.GONE);
-                    }
-                });
-
-        name = bundle.getString("name");
-        overview.setText(bundle.getString("synopsis"));
-        ratings.setText(bundle.getString("vote"));
-        release.setText(bundle.getString("release"));
-        title.setText(name);
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "this", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
-    private void twoPaneConfig()
-    {
-        Detailtasks dTask = new Detailtasks();
-        dTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,Constants.getInstance().reviewApi(bundle.getString("id")));
-        tTask = new TrailerTask();
-        tTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,Constants.getInstance().trailerApi(bundle.getString("id")));
 
-        Picasso.with(getContext())
-                .load(Constants.getInstance().imageApi(bundle.getString("poster"), "185"))
-                .placeholder(R.drawable.no_image) // optionals2 +
-                .error(R.drawable.no_image)         // optional
-                .into(thumb, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        pthumb.setVisibility(View.GONE);
-                    }
+    private void twoPaneConfig(View view) {
+        if (Constants.getInstance().isNetworkAvailable(getContext())) {
 
-                    @Override
-                    public void onError() {
-                        pthumb.setVisibility(View.GONE);
-                    }
-                });
+            ApiManager.newInstance(this).requestGet(Constants.getInstance().reviewApi(results.getId().toString()), 1);
+            ApiManager.newInstance(this).requestGet( Constants.getInstance().trailerApi(results.getId().toString()), 2);
 
-        name = bundle.getString("name");
-        overview.setText(bundle.getString("synopsis"));
-        ratings.setText(bundle.getString("vote"));
-        release.setText(bundle.getString("release"));
-        title.setText(name);
+            Picasso.with(getContext())
+                    .load(Constants.getInstance().imageApi(results.getPosterPath(), "185"))
+                    .placeholder(R.drawable.no_image) // optionals2 +
+                    .error(R.drawable.no_image)         // optional
+                    .into(thumb, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            pthumb.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            pthumb.setVisibility(View.GONE);
+                        }
+                    });
+        } else {
+            pthumb.setVisibility(View.GONE);
+            pBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+            Snackbar.make(view, "Additional Data requires Internet Connectivity", Snackbar.LENGTH_LONG).show();
+        }
 
     }
 
@@ -269,93 +267,136 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
         }
     }
 
+    @Override
+    public void onRecieve(String str) {
 
-    class Detailtasks extends AsyncTask<String, String, String> {
+    }
 
-        StringBuilder result = new StringBuilder();
+    @Override
+    public void onRecieve(String str, int icallbackId) {
 
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                URL url = new URL(params[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return result.toString();
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
+        if (icallbackId == 1) {
             progressBar.setVisibility(View.GONE);
             reviewList.setVisibility(View.VISIBLE);
             reviewList.setNestedScrollingEnabled(false);
-            JsonPArser jp = new JsonPArser();
-            ArrayList<Results> arr = jp.setReviewData(s).getResults();
+            ArrayList<Results> arr = ModelManagerNew.getInstance().getReviews(str).getResults();
             ReviewAdapter rAdapter = new ReviewAdapter(getActivity(), arr);
             reviewList.setLayoutManager(new LinearLayoutManager(getActivity()));
             reviewList.setAdapter(rAdapter);
-        }
 
-
-    }
-    class TrailerTask extends AsyncTask<String,String,String>
-    {
-        StringBuilder result = new StringBuilder();
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                URL url = new URL(params[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return result.toString();
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
+        } else if (icallbackId == 2) {
             trailers.setVisibility(View.VISIBLE);
             pBar.setVisibility(View.GONE);
-            JsonPArser jp = new JsonPArser();
-            ArrayList<TrailerResults> arr = jp.setTrailerData(s).getResults();
+            ArrayList<TrailerResults> arr = ModelManagerNew.getInstance().getTrailers(str).getResults();
             TrailerAdapter rAdapter = new TrailerAdapter(getActivity(), arr);
-
             LinearLayoutManager layoutManager
                     = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
             trailers.setLayoutManager(layoutManager);
 
             trailers.setAdapter(rAdapter);
         }
+
+
     }
 
     @Override
+    public void onError(String str) {
+
+    }
+
+    @Override
+    public void onError(String str, int id) {
+
+    }
+
+
+//    class Detailtasks extends AsyncTask<String, String, String> {
+//
+//        StringBuilder result = new StringBuilder();
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            try {
+//                URL url = new URL(params[0]);
+//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+//
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    result.append(line);
+//                }
+//
+//
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return result.toString();
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            progressBar.setVisibility(View.GONE);
+//            reviewList.setVisibility(View.VISIBLE);
+//            reviewList.setNestedScrollingEnabled(false);
+//            JsonPArser jp = new JsonPArser();
+//            ArrayList<Results> arr = jp.setReviewData(s).getResults();
+//            ReviewAdapter rAdapter = new ReviewAdapter(getActivity(), arr);
+//            reviewList.setLayoutManager(new LinearLayoutManager(getActivity()));
+//            reviewList.setAdapter(rAdapter);
+//        }
+//
+//
+//    }
+//
+//    class TrailerTask extends AsyncTask<String, String, String> {
+//        StringBuilder result = new StringBuilder();
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            try {
+//                URL url = new URL(params[0]);
+//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+//
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    result.append(line);
+//                }
+//
+//
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return result.toString();
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            trailers.setVisibility(View.VISIBLE);
+//            pBar.setVisibility(View.GONE);
+//            JsonPArser jp = new JsonPArser();
+//            ArrayList<TrailerResults> arr = jp.setTrailerData(s).getResults();
+//            TrailerAdapter rAdapter = new TrailerAdapter(getActivity(), arr);
+//
+//            LinearLayoutManager layoutManager
+//                    = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+//            trailers.setLayoutManager(layoutManager);
+//
+//            trailers.setAdapter(rAdapter);
+//        }
+//    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if(app != null) {
+        if (app != null) {
             inflater.inflate(R.menu.detail_menu, menu);
         }
         super.onCreateOptionsMenu(menu, inflater);
@@ -364,19 +405,23 @@ public class DetailFragment extends Fragment implements AppBarLayout.OnOffsetCha
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(app != null) {
+        if (app != null) {
 
             if (item.getItemId() == R.id.settings) {
                 String url = "https://www.google.co.in/#q=" + name + " movie";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
-                startActivity(i);
+                if (i.resolveActivity(getContext().getPackageManager()) != null) {
+                    startActivity(i);
+                }
+                else{
+                    Toast.makeText(getContext(), "no apps available", Toast.LENGTH_SHORT).show();
+                }
             }
         }
         return super.onOptionsItemSelected(item);
 
     }
-
 
 
 }

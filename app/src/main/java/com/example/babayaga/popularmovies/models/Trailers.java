@@ -19,14 +19,14 @@ public class Trailers {
         }
     }
 
-    private String id;
-    private ArrayList<TrailerResults> results = new ArrayList<>();
+    private Integer id;
+    private ArrayList<TrailerResults> results = null;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,4 +37,7 @@ public class Trailers {
     public void setResults(ArrayList<TrailerResults> results) {
         this.results = results;
     }
+
+
+
 }

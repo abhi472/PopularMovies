@@ -1,9 +1,7 @@
 package com.example.babayaga.popularmovies.fragments;
 
 
-import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -15,29 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.babayaga.popularmovies.data.MoviesContract;
-import com.example.babayaga.popularmovies.models.MovieList;
-import com.example.babayaga.popularmovies.parser.JsonPArser;
+import com.example.babayaga.popularmovies.apis.ApiManager;
+import com.example.babayaga.popularmovies.apis.ModelManagerNew;
+import com.example.babayaga.popularmovies.callbacks.ICallBack;
 import com.example.babayaga.popularmovies.models.MovieResults;
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.adapters.RAdapter;
 import com.example.babayaga.popularmovies.utils.Constants;
-import com.example.babayaga.popularmovies.utils.NewGridLayoutManager;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieFragment extends Fragment{
+public class MovieFragment extends Fragment implements ICallBack{
 
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
@@ -92,53 +80,80 @@ public class MovieFragment extends Fragment{
 
             }
 
-            tasks task = new tasks();
-            task.execute(url);
+//            tasks task = new tasks();
+//            task.execute(url);
+        ApiManager.newInstance(this).requestGet(url);
         }
 
+    @Override
+    public void onRecieve(String str) {
+        bar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        ArrayList<MovieResults> arr = ModelManagerNew.getInstance().getAllMovies(str).getResults();
+        RAdapter rAdapter = new RAdapter(arr, getContext());
+        recyclerView.setAdapter(rAdapter);
 
-
-    class tasks extends AsyncTask<String, String, String> {
-        @Override
-        protected void onPreExecute() {
-        }
-
-        StringBuilder result = new StringBuilder();
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                URL url = new URL(params[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return result.toString();
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            bar.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-            JsonPArser jp = new JsonPArser();
-            ArrayList<MovieResults> arr = jp.setData(s).getResults();
-            Log.d("tag", "onPostExecute: "+grid);
-            RAdapter rAdapter = new RAdapter(arr, getContext());
-            recyclerView.setAdapter(rAdapter);
-        }
 
 
     }
+
+    @Override
+    public void onRecieve(String str, int icallbackId) {
+
+    }
+
+    @Override
+    public void onError(String str) {
+
+    }
+
+    @Override
+    public void onError(String str, int id) {
+
+    }
+
+
+//    class tasks extends AsyncTask<String, String, String> {
+//        @Override
+//        protected void onPreExecute() {
+//        }
+//
+//        StringBuilder result = new StringBuilder();
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            try {
+//                URL url = new URL(params[0]);
+//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+//
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    result.append(line);
+//                }
+//
+//
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return result.toString();
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            bar.setVisibility(View.GONE);
+//            recyclerView.setVisibility(View.VISIBLE);
+//            JsonPArser jp = new JsonPArser();
+//            ArrayList<MovieResults> arr = jp.setData(s).getResults();
+//            Log.d("tag", "onPostExecute: "+grid);
+//            RAdapter rAdapter = new RAdapter(arr, getContext());
+//            recyclerView.setAdapter(rAdapter);
+//        }
+//
+//
+//    }
 }

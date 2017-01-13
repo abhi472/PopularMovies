@@ -34,11 +34,11 @@ public class FavoriteAdder  {
        ContentValues cv = new ContentValues();
         cv.put(MoviesContract._ID,movie.getId());
         cv.put(MoviesContract.TITLE,movie.getTitle());
-        cv.put(MoviesContract.DATE,movie.getRelease_date());
-        cv.put(MoviesContract.AVERAGE,movie.getVote_average());
+        cv.put(MoviesContract.DATE,movie.getReleaseDate());
+        cv.put(MoviesContract.AVERAGE,movie.getVoteAverage());
         cv.put(MoviesContract.SYNOPSIS,movie.getOverview());
-        cv.put(MoviesContract.THUMBNAIL_IMG,movie.getPoster_path());
-        cv.put(MoviesContract.BACK_IMG,movie.getBack_path());
+        cv.put(MoviesContract.THUMBNAIL_IMG,movie.getPosterPath());
+        cv.put(MoviesContract.BACK_IMG,movie.getBackdropPath());
         context.getContentResolver().insert(MoviesContract.CONTENT_URI,cv);
     }
     public void remFav(MovieResults movie) {

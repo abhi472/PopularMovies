@@ -12,6 +12,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    packagingOptions {
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/notice'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license'
+        exclude 'META-INF/license.txt'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -39,6 +48,10 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.jakewharton:butterknife:8.2.0'
     compile 'com.facebook.stetho:stetho:1.4.0'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.5.4'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.4'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
     compile 'com.google.android.gms:play-services-appindexing:9.6.1'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'

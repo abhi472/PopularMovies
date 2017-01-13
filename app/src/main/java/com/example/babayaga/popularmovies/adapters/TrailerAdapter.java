@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.babayaga.popularmovies.R;
 import com.example.babayaga.popularmovies.models.TrailerResults;
@@ -55,7 +56,12 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+ trailerResultses.get(holder.getAdapterPosition()).getKey()));
-                context.startActivity(browserIntent);
+                if (browserIntent.resolveActivity(context.getPackageManager()) != null) {
+                    context.startActivity(browserIntent);
+                }
+                else{
+                    Toast.makeText(context,"no apps available",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

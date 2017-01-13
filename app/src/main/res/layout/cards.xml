@@ -26,7 +26,7 @@
         />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="@dimen/DescBarHeight"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:gravity="center"
@@ -39,21 +39,21 @@
             android:ellipsize="end"
             android:text="kaljakjaasdjfsjkf"
             android:layout_weight="4.5"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
+            android:paddingLeft="@dimen/horizontalMarginStatic"
+            android:paddingRight="@dimen/horizontalMarginStatic"
+            android:paddingEnd="@dimen/horizontalMarginStatic"
+            android:paddingStart="@dimen/horizontalMarginStatic"
             android:textColor="#fff"
-            android:textSize="15sp"
+            android:textSize="@dimen/descTitle15"
             android:gravity="start|center_vertical"
             />
 
         <ToggleButton
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/toggleSize"
+            android:layout_height="@dimen/toggleSize"
             android:background="@drawable/check"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginRight="@dimen/horizontalMarginStatic"
+            android:layout_marginEnd="@dimen/horizontalMarginStatic"
             android:textOff=""
             android:textOn=""
             android:id="@+id/fav"/>
