@@ -3,15 +3,15 @@ package com.example.babayaga.popularmovies.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
+import com.example.babayaga.popularmovies.BuildConfig;
 /**
  * Created by abhishek on 14/9/16.
  */
 
 public class Constants {
 
-    private String BASE_URL = "http://api.themoviedb.org/3/movie/";
-    private String API_KEY = "";
+    private final String BASE_URL = "http://api.themoviedb.org/3/movie/";
+    private final String API_KEY = "api_key=" + BuildConfig.TMDB_API_KEY;
     private static Constants constants;
 
 
