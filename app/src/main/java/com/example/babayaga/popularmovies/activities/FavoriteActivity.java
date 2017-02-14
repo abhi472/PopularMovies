@@ -163,6 +163,7 @@ public class FavoriteActivity extends AppCompatActivity implements ToggleClickFa
         if (item.getItemId() == R.id.explore) {
             Intent intent = new Intent(FavoriteActivity.this, MovieList.class);
             startActivity(intent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

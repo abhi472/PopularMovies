@@ -1,5 +1,6 @@
 package com.example.babayaga.popularmovies.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity{
     @BindView(R.id.toolbar)
     ViewGroup group;
     Toolbar toolbar;
+    Fragment fragment;
 
 
     @Override
@@ -37,19 +39,33 @@ public class SettingsActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setIcon(R.drawable.ic_action_bar);
         setTitle("Settings");
-        PreferenceFragment fragment = new PreferenceFragment();
+        if(savedInstanceState == null) {
+            fragment = new PreferenceFragment();
+
+        }
+        else {
+                fragment = getFragmentManager().getFragment(savedInstanceState, "mContent");
+        }
         FragmentManager fragmentmanager = getFragmentManager();
         FragmentTransaction transaction = fragmentmanager.beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
+        fragmentmanager.popBackStack();
 
     }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getFragmentManager().putFragment(outState, "mContent", fragment);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         toolbar.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimary));
         toolbar.setTitleTextColor(Color.WHITE);
     }
+
 
 }
 

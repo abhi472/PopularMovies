@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -48,6 +49,7 @@ public class MovieList extends AppCompatActivity implements SharedPreferences.On
     Boolean mTwoPane = false;
     Toolbar toolbar;
     SharedPreferences preference;
+    Fragment fragment ;
 
 
     @Override
@@ -72,28 +74,34 @@ public class MovieList extends AppCompatActivity implements SharedPreferences.On
             mTwoPane = true;
         }
 
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (Constants.getInstance().isNetworkAvailable(this)) {
-            MovieFragment fragment = new MovieFragment();
+        if(savedInstanceState != null) {
+            fragment = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 
-            if (frag_container != null) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        }
+        else {
 
-                transaction.replace(R.id.fragment_container, fragment);
+            if (Constants.getInstance().isNetworkAvailable(this)) {
+                fragment = new MovieFragment();
 
-                transaction.commit();
-            }
-        } else {
-            ErrorFragment fragment = new ErrorFragment();
-            if (findViewById(R.id.fragment_container) != null) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            } else {
+                fragment = new ErrorFragment();
 
-                transaction.replace(R.id.fragment_container, fragment);
-
-                transaction.commit();
             }
         }
 
+
+        transaction.replace(R.id.fragment_container, fragment);
+
+        transaction.commit();
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, "mContent", fragment);
     }
 
     @Override
@@ -122,6 +130,8 @@ public class MovieList extends AppCompatActivity implements SharedPreferences.On
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
     }
+
+
 
 
     @Override
