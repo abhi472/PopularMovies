@@ -63,49 +63,49 @@ public class FavoriteActivity extends AppCompatActivity implements ToggleClickFa
             mTwoPane = true;
         }
         bundle = getIntent().getExtras();
-        if (bundle != null)
+        if (bundle != null) {
             if (bundle.getInt("cursor") == 0) {
                 Bundle bundle = new Bundle();
                 bundle.putString("title", "No Favorites Added");
                 ErrorFragment fragment = new ErrorFragment();
                 fragment.setArguments(bundle);
-                if (frag_container != null) {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                    transaction.replace(R.id.fragment_container, fragment);
-
-                    transaction.commit();
-                }
 
             } else {
-                Fav_fargment fragment = new Fav_fargment();
+                if(savedInstanceState != null) {
+                    fragment = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 
-                if (frag_container != null) {
-
-
-                    transaction = getSupportFragmentManager().beginTransaction();
-
-                    transaction.replace(R.id.fragment_container, fragment);
-
-                    transaction.commit();
                 }
-            }
+                else
+                 fragment = new Fav_fargment();
 
-        else {
-            Fav_fargment fragment = new Fav_fargment();
-
-
-            if (frag_container != null) {
-
-
-                transaction = getSupportFragmentManager().beginTransaction();
-
-                transaction.replace(R.id.fragment_container, fragment);
-
-                transaction.commit();
             }
         }
 
+        else {
+            if(savedInstanceState != null) {
+                fragment = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
+
+            }
+            else
+             fragment = new Fav_fargment();
+        }
+
+        if (frag_container != null) {
+
+
+            transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.fragment_container, fragment);
+
+            transaction.commit();
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, "mContent", fragment);
     }
 
     @Override
