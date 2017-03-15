@@ -37,7 +37,6 @@
             android:layout_height="match_parent"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="kaljakjaasdjfsjkf"
             android:layout_weight="4.5"
             android:paddingLeft="@dimen/horizontalMarginStatic"
             android:paddingRight="@dimen/horizontalMarginStatic"

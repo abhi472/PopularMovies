@@ -57,6 +57,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.4'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
     compile 'com.google.android.gms:play-services-appindexing:9.6.1'
+
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test:runner:0.5'
